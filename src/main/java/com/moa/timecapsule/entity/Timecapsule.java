@@ -2,34 +2,42 @@ package com.moa.timecapsule.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+import java.sql.Types;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.UUID;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.UuidGenerator;
 
 @Getter
 @Entity
+@SuperBuilder
 @NoArgsConstructor
-public class Timecapsule {
+public class Timecapsule extends BaseEntity{
     @Id
-    @Column(length = 36)
-    private String UUID;
+	@GeneratedValue
+	@UuidGenerator
+	@JdbcTypeCode(Types.VARCHAR)
+	private UUID timeCapsuleId;
 
+	@Column(nullable = false)
     private String title;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "closed_at")
+	@Column(nullable = false)
     private LocalDate closedAt;
 
-    @Column(name = "opened_at")
+	@Column(nullable = false)
     private LocalDate openedAt;
 
-    @Column(name = "is_opened")
+	@Column(columnDefinition = "boolean default false")
     private boolean isOpened;
 
-    private String member;
+//	@Column(nullable = false)
+    private UUID member;
 }
