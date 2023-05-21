@@ -40,11 +40,22 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 									.build()
 		);
 
-		for (UUID friend: timeCapsuleDto.getFriends()) {
-			insertTimeCapsuleMember(timecapsule.getTimeCapsuleId(), friend);
+		for (Object friend: timeCapsuleDto.getFriends()) {
+			insertTimeCapsuleMember(timecapsule.getTimeCapsuleId(), (UUID) friend);
 		}
 
 		return timeCapsuleMapper.toDto(timecapsule);
+	}
+
+	@Override
+	public TimeCapsuleDto selectTimeCapsule(UUID timeCapsuleId) {
+		Timecapsule timecapsule = timeCapsuleRepository.findTimecapsuleByTimeCapsuleId(timeCapsuleId);
+
+		// feign client로 친구 값 가져오기
+		//TimeCapsuleMemberNicknameDto friends = new TimeCapsuleMemberNicknameDto();
+		TimeCapsuleDto timeCapsuleDto = timeCapsuleMapper.toDto(timecapsule);
+		//timeCapsuleDto.insertFriends(friends);
+		return timeCapsuleDto;
 	}
 
 	private void insertTimeCapsuleMember(UUID timeCapsuleId, UUID friend) {

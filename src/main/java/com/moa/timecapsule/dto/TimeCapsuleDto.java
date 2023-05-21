@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Getter
 @SuperBuilder
-public class TimeCapsuleDto {
+public class TimeCapsuleDto<D> {
 
 	private UUID timeCapsuleId;
 
@@ -23,5 +23,9 @@ public class TimeCapsuleDto {
 
 	private UUID member;
 
-	private List<UUID> friends;
+	private List<D> friends;
+
+	public void insertFriends(List<D> friends) {
+		this.friends = friends;
+	}
 }
