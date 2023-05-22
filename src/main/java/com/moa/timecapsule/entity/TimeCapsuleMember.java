@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @SuperBuilder
 @NoArgsConstructor
-public class TimeCapsuleMember extends BaseEntity{
+public class TimeCapsuleMember extends BaseEntity {
 	@Id
 	@GeneratedValue
 	private Long timeCapsuleMemberId;
