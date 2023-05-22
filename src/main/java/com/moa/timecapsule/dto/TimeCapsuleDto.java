@@ -21,7 +21,11 @@ public class TimeCapsuleDto {
 
 	private boolean isOpened;
 
-	private UUID member;
+	private UUID creator;
 
-	private List<UUID> friends;
+	private List<Object> friends;
+
+	public void insertFriends(List<Object> friends) {
+		this.friends = friends;
+	}
 }

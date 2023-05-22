@@ -7,6 +7,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class TimeCapsuleIdResponseDto {
+public class TimeCapsuleIdResponse {
 	private UUID timeCapsuleId;
 }

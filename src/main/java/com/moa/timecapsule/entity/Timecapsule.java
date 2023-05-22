@@ -40,5 +40,5 @@ public class Timecapsule extends BaseEntity {
 	private boolean isOpened;
 
 	//	@Column(nullable = false)
-	private UUID member;
+	private UUID creator;
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.moa.timecapsule.controller.request.GenerateTimeCapsuleRequest;
 import com.moa.timecapsule.controller.response.ResponseDto;
-import com.moa.timecapsule.controller.response.TimeCapsuleIdResponseDto;
+import com.moa.timecapsule.controller.response.TimeCapsuleIdResponse;
 import com.moa.timecapsule.dto.TimeCapsuleDto;
 import com.moa.timecapsule.mapper.TimeCapsuleDtoMapper;
 import com.moa.timecapsule.service.TimeCapsuleService;
@@ -34,7 +34,7 @@ public class TimeCapsuleController {
 		return ResponseEntity.ok(ResponseDto.builder()
 			.code(HttpStatus.OK)
 			.msg("타임캡슐이 생성되었습니다.")
-			.data(TimeCapsuleIdResponseDto.builder()
+			.data(TimeCapsuleIdResponse.builder()
 				.timeCapsuleId(timeCapsuleDto.getTimeCapsuleId())
 				.build())
 			.build());
