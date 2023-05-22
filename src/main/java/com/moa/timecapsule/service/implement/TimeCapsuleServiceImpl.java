@@ -3,11 +3,14 @@ package com.moa.timecapsule.service.implement;
 import java.util.UUID;
 
 import com.moa.timecapsule.dto.TimeCapsuleDto;
+import com.moa.timecapsule.dto.TimeCapsuleTextDto;
 import com.moa.timecapsule.entity.TimeCapsuleMember;
+import com.moa.timecapsule.entity.TimeCapsuleText;
 import com.moa.timecapsule.entity.Timecapsule;
 import com.moa.timecapsule.mapper.TimeCapsuleMapper;
 import com.moa.timecapsule.repository.TimeCapsuleMemberRepository;
 import com.moa.timecapsule.repository.TimeCapsuleRepository;
+import com.moa.timecapsule.repository.TimeCapsuleTextRepository;
 import com.moa.timecapsule.service.TimeCapsuleService;
 
 import org.springframework.stereotype.Service;
@@ -22,6 +25,7 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 
 	private final TimeCapsuleRepository timeCapsuleRepository;
 	private final TimeCapsuleMemberRepository timeCapsuleMemberRepository;
+	private final TimeCapsuleTextRepository timeCapsuleTextRepository;
 
 	private final TimeCapsuleMapper timeCapsuleMapper;
 
@@ -45,6 +49,16 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 		}
 
 		return timeCapsuleMapper.toDto(timecapsule);
+	}
+
+	@Override
+	@Transactional
+	/*
+		timecapsule text 생성
+	 */
+	public TimeCapsuleTextDto insertTimeCapsuleText(TimeCapsuleTextDto timeCapsuleTextDto) {
+		TimeCapsuleText timeCapsuleText = timeCapsuleTextRepository.save(timeCapsuleMapper.toEntity(timeCapsuleTextDto));
+		return timeCapsuleMapper.toDto(timeCapsuleText);
 	}
 
 	private void insertTimeCapsuleMember(UUID timeCapsuleId, UUID friend) {
