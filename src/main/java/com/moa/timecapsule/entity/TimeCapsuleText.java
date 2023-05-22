@@ -29,7 +29,7 @@ public class TimeCapsuleText extends BaseEntity {
 	@Column(nullable = false)
 	private UUID timeCapsuleId;
 
-	// @Column(nullable = false)
+	@Column(nullable = false)
 	private UUID memberId;
 
 	@Column(nullable = false)

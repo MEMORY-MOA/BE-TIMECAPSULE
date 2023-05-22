@@ -7,6 +7,6 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class TimeCapsuleIdResponseDto {
+public class TimeCapsuleIdResponse {
 	private UUID timeCapsuleId;
 }

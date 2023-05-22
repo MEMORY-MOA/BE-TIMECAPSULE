@@ -7,11 +7,10 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class TimeCapsuleContentResponse {
+public class TimeCapsuleTextResponse {
 
 	private UUID memberId;
 
-	private String content;
+	private String text;
 
-	private String type;
 }
