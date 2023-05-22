@@ -27,10 +27,6 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 
 	@Override
 	@Transactional
-	/*
-		timecapsule 생성
-		timecapsule member 생성
-	 */
 	public TimeCapsuleDto insertTimeCapsule(TimeCapsuleDto timeCapsuleDto) {
 		Timecapsule timecapsule = timeCapsuleRepository.save(timeCapsuleMapper.toEntity(timeCapsuleDto));
 
