@@ -56,7 +56,7 @@ public class TimeCapsuleController {
 
 			return ResponseDto.builder()
 				.code(HttpStatus.CREATED)
-				.msg("Time Capsule is Created Successful")
+				.msg("Time Capsule Text is Created Successful")
 				.data(TimeCapsuleContentResponse.builder()
 					.content(timeCapsuleTextDto.getText())
 					.type("text")
