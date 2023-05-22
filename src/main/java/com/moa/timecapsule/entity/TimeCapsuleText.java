@@ -18,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @SuperBuilder
 @NoArgsConstructor
-public class TimeCapsuleText extends BaseEntity{
+public class TimeCapsuleText extends BaseEntity {
 
 	@Id
 	@GeneratedValue

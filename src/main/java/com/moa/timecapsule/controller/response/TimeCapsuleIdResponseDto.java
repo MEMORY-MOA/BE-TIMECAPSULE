@@ -3,7 +3,6 @@ package com.moa.timecapsule.controller.response;
 import java.util.UUID;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 
 @Getter

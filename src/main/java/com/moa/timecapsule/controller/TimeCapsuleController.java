@@ -37,17 +37,17 @@ public class TimeCapsuleController {
 			timeCapsuleDtoMapper.fromGenerateTimeCapsuleRequest(request));
 
 		return ResponseDto.builder()
-				.code(HttpStatus.CREATED)
-				.msg("Time Capsule is Created Successful")
-				.data(TimeCapsuleIdResponseDto.builder()
-						.timeCapsuleId(timeCapsuleDto.getTimeCapsuleId())
-						.build())
-				.build();
+			.code(HttpStatus.CREATED)
+			.msg("Time Capsule is Created Successful")
+			.data(TimeCapsuleIdResponseDto.builder()
+				.timeCapsuleId(timeCapsuleDto.getTimeCapsuleId())
+				.build())
+			.build();
 	}
 
 	@PostMapping("/{time-capsule}")
 	public ResponseDto generateTimeCapsuleText(@PathVariable("time-capsule") UUID timeCapsuleId,
-											@RequestBody GenerateTimeCapsuleContentRequest request) {
+		@RequestBody GenerateTimeCapsuleContentRequest request) {
 		TimeCapsuleTextDto timeCapsuleTextDto;
 		System.out.println(request.getText());
 		if (request.getText() != null) {

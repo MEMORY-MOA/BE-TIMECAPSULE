@@ -37,14 +37,14 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 	 */
 	public TimeCapsuleDto insertTimeCapsule(TimeCapsuleDto timeCapsuleDto) {
 		Timecapsule timecapsule = timeCapsuleRepository.save(Timecapsule.builder()
-									.title(timeCapsuleDto.getTitle())
-									.closedAt(timeCapsuleDto.getClosedAt())
-									.openedAt(timeCapsuleDto.getOpenedAt())
-									.member(timeCapsuleDto.getMember())
-									.build()
+			.title(timeCapsuleDto.getTitle())
+			.closedAt(timeCapsuleDto.getClosedAt())
+			.openedAt(timeCapsuleDto.getOpenedAt())
+			.member(timeCapsuleDto.getMember())
+			.build()
 		);
 
-		for (UUID friend: timeCapsuleDto.getFriends()) {
+		for (UUID friend : timeCapsuleDto.getFriends()) {
 			insertTimeCapsuleMember(timecapsule.getTimeCapsuleId(), friend);
 		}
 
@@ -57,7 +57,8 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 		timecapsule text 생성
 	 */
 	public TimeCapsuleTextDto insertTimeCapsuleText(TimeCapsuleTextDto timeCapsuleTextDto) {
-		TimeCapsuleText timeCapsuleText = timeCapsuleTextRepository.save(timeCapsuleMapper.toEntity(timeCapsuleTextDto));
+		TimeCapsuleText timeCapsuleText = timeCapsuleTextRepository.save(
+			timeCapsuleMapper.toEntity(timeCapsuleTextDto));
 		return timeCapsuleMapper.toDto(timeCapsuleText);
 	}
 
