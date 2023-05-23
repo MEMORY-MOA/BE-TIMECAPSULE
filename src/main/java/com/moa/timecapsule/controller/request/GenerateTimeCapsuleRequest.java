@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.NonNull;
 
 @Getter
-public class generateTimeCapsuleRequest {
+public class GenerateTimeCapsuleRequest {
 	@NonNull
 	private String title;
 

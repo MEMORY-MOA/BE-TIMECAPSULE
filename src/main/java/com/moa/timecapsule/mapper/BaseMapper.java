@@ -1,10 +1,10 @@
 package com.moa.timecapsule.mapper;
 
-import com.moa.timecapsule.dto.BaseDto;
-import com.moa.timecapsule.entity.BaseEntity;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import com.moa.timecapsule.dto.BaseDto;
+import com.moa.timecapsule.entity.BaseEntity;
 
 @Mapper(componentModel = "spring")
 public interface BaseMapper {
