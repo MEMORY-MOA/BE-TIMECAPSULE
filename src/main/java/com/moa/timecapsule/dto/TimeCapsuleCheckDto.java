@@ -7,9 +7,8 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @SuperBuilder
-public class TimeCapsuleMemberNicknameDto {
+public class TimeCapsuleCheckDto extends BaseDto {
+	UUID memberId;
 
-	private UUID memberId;
-
-	private String nickname;
+	UUID timeCapsuleId;
 }

@@ -1,10 +1,13 @@
 package com.moa.timecapsule.service;
 
-import java.util.UUID;
-
+import com.moa.timecapsule.dto.TimeCapsuleCheckDto;
 import com.moa.timecapsule.dto.TimeCapsuleDto;
+import com.moa.timecapsule.dto.TimeCapsuleTextDto;
 
 public interface TimeCapsuleService {
 	TimeCapsuleDto insertTimeCapsule(TimeCapsuleDto timeCapsuleDto);
-	TimeCapsuleDto selectTimeCapsule(UUID timeCapsuleId);
+
+	TimeCapsuleTextDto insertTimeCapsuleText(TimeCapsuleTextDto timeCapsuleTextDto);
+
+	TimeCapsuleDto selectTimeCapsule(TimeCapsuleCheckDto timeCapsuleCheckDto);
 }

@@ -1,16 +1,17 @@
-package com.moa.timecapsule.dto;
+package com.moa.timecapsule.controller.response;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-import lombok.Data;
+import com.moa.timecapsule.dto.TimeCapsuleMemberDto;
+
+import lombok.Builder;
 import lombok.Getter;
-import lombok.experimental.SuperBuilder;
 
 @Getter
-@SuperBuilder
-public class TimeCapsuleDto extends BaseDto {
+@Builder
+public class GetOneTimeCapsuleResponse {
 
 	private UUID timeCapsuleId;
 
@@ -26,7 +27,4 @@ public class TimeCapsuleDto extends BaseDto {
 
 	private List<TimeCapsuleMemberDto> friends;
 
-	public void insertFriends(List<TimeCapsuleMemberDto> friends) {
-		this.friends = friends;
-	}
 }

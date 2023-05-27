@@ -2,6 +2,7 @@ package com.moa.timecapsule.entity;
 
 import java.util.UUID;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -18,7 +19,9 @@ public class TimeCapsuleMember extends BaseEntity {
 	@GeneratedValue
 	private Long timeCapsuleMemberId;
 
+	@Column(nullable = false)
 	private UUID timeCapsuleId;
 
+	@Column(nullable = false)
 	private UUID memberId;
 }
