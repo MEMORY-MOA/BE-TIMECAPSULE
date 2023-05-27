@@ -39,7 +39,7 @@ public interface TimeCapsuleDtoMapper {
 		List<TimeCapsuleMemberDto> list = new ArrayList<>();
 
 		for (UUID friend : friends) {
-			list.add(TimeCapsuleMemberDto.builder().memberUUID(friend).build());
+			list.add(TimeCapsuleMemberDto.builder().memberId(friend).build());
 		}
 
 		return list;

@@ -1,10 +1,13 @@
 package com.moa.timecapsule.service.implement;
 
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.moa.timecapsule.client.MemberFeignClient;
 import com.moa.timecapsule.dto.TimeCapsuleCheckDto;
 import com.moa.timecapsule.dto.TimeCapsuleDto;
 import com.moa.timecapsule.dto.TimeCapsuleMemberDto;
@@ -32,6 +35,8 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 
 	private final TimeCapsuleMapper timeCapsuleMapper;
 
+	private final MemberFeignClient memberFeignClient;
+
 	@Override
 	@Transactional
 	public TimeCapsuleDto insertTimeCapsule(TimeCapsuleDto timeCapsuleDto) {
@@ -40,7 +45,7 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 		insertTimeCapsuleMember(timecapsule.getTimeCapsuleId(), timeCapsuleDto.getCreator());
 
 		for (TimeCapsuleMemberDto friend : timeCapsuleDto.getFriends()) {
-			insertTimeCapsuleMember(timecapsule.getTimeCapsuleId(), friend.getMemberUUID());
+			insertTimeCapsuleMember(timecapsule.getTimeCapsuleId(), friend.getMemberId());
 		}
 
 		return timeCapsuleMapper.toDto(timecapsule);
@@ -59,16 +64,20 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 
 	@Override
 	public TimeCapsuleDto selectTimeCapsule(TimeCapsuleCheckDto timeCapsuleCheckDto) {
-		System.out.println(timeCapsuleCheckDto.getMemberId());
 		checkTimeCapsuleMember(timeCapsuleCheckDto.getTimeCapsuleId(), timeCapsuleCheckDto.getMemberId());
 
 		Timecapsule timecapsule = timeCapsuleRepository.findTimecapsuleByTimeCapsuleId(
 			timeCapsuleCheckDto.getTimeCapsuleId());
 
-		// feign client로 친구 값 가져오기
-		//TimeCapsuleMemberNicknameDto friends = new TimeCapsuleMemberNicknameDto();
+		List<UUID> friendsUUIDList = timeCapsuleMemberRepository.findByTimeCapsuleId(
+			timeCapsuleCheckDto.getTimeCapsuleId())
+			.stream()
+			.map(timeCapsuleMember -> timeCapsuleMember.getMemberId())
+			.toList();
+
+		List<TimeCapsuleMemberDto> friends = memberFeignClient.getMembersInfo(friendsUUIDList);
 		TimeCapsuleDto timeCapsuleDto = timeCapsuleMapper.toDto(timecapsule);
-		//timeCapsuleDto.insertFriends(friends);
+		timeCapsuleDto.insertFriends(friends);
 
 		return timeCapsuleDto;
 	}
@@ -81,6 +90,7 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 	}
 
 	private void checkTimeCapsuleMember(UUID timeCapsuleId, UUID memberId) {
-		timeCapsuleMemberRepository.findByTimeCapsuleIdAndMemberId(timeCapsuleId, memberId).orElseThrow(() -> new NotFoundException("타임캡슐 멤버가 아닙니다."));
+		timeCapsuleMemberRepository.findByTimeCapsuleIdAndMemberId(timeCapsuleId, memberId)
+			.orElseThrow(() -> new NotFoundException("타임캡슐 멤버가 아닙니다."));
 	}
 }

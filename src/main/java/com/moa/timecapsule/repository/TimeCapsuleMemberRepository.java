@@ -1,5 +1,6 @@
 package com.moa.timecapsule.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,4 +13,7 @@ import com.moa.timecapsule.entity.Timecapsule;
 @Repository
 public interface TimeCapsuleMemberRepository extends JpaRepository<TimeCapsuleMember, Long> {
 	Optional<TimeCapsuleMember> findByTimeCapsuleIdAndMemberId(UUID timeCapsuleId, UUID memberId);
+
+	List<TimeCapsuleMember> findByTimeCapsuleId(UUID timeCapsuleId);
+
 }

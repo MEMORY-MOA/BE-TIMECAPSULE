@@ -2,16 +2,20 @@ package com.moa.timecapsule.dto;
 
 import java.util.UUID;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-@Getter
+@Data
 @SuperBuilder
-public class TimeCapsuleMemberDto extends BaseDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class TimeCapsuleMemberDto {
 
-	private UUID memberUUID;
+	private UUID memberId;
 
-	private String memberId;
+	private String loginId;
 
 	private String nickname;
 }
