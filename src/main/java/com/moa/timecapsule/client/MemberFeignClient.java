@@ -17,5 +17,5 @@ public interface MemberFeignClient {
 	TimeCapsuleMemberDto getMemberInfo(@PathVariable("member-id") UUID memberId);
 
 	@GetMapping(value = "/internal-users/find-members")
-	List<TimeCapsuleMemberDto> getMembersInfo(@RequestParam("member-id") List<UUID> friendsUUIDList);
+	List<TimeCapsuleMemberDto> getMembersInfo(@RequestParam("member-id") List<UUID> friendsIdList);
 }

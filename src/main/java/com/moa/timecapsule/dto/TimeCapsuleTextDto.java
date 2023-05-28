@@ -2,7 +2,6 @@ package com.moa.timecapsule.dto;
 
 import java.util.UUID;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 

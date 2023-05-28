@@ -3,7 +3,6 @@ package com.moa.timecapsule.mapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,7 +10,7 @@ import org.mapstruct.Mapping;
 import com.moa.timecapsule.controller.request.GenerateTimeCapsuleContentRequest;
 import com.moa.timecapsule.controller.request.GenerateTimeCapsuleRequest;
 import com.moa.timecapsule.controller.response.GetOneTimeCapsuleResponse;
-import com.moa.timecapsule.dto.TimeCapsuleCheckDto;
+import com.moa.timecapsule.dto.TimeCapsuleBasicIdsDto;
 import com.moa.timecapsule.dto.TimeCapsuleDto;
 import com.moa.timecapsule.dto.TimeCapsuleMemberDto;
 import com.moa.timecapsule.dto.TimeCapsuleTextDto;
@@ -31,7 +30,7 @@ public interface TimeCapsuleDtoMapper {
 
 	TimeCapsuleTextDto toGenerateTimeCapsuleTextResponse(TimeCapsuleTextDto timeCapsuleTextDto);
 
-	TimeCapsuleCheckDto toTimeCapsuleCheckDto(UUID memberId, UUID timeCapsuleId);
+	TimeCapsuleBasicIdsDto toTimeCapsuleBasicIdsDto(UUID memberId, UUID timeCapsuleId);
 
 	GetOneTimeCapsuleResponse toGetOneTimeCapsuleResponse(TimeCapsuleDto timeCapsuleDto);
 

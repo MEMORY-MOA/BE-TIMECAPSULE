@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
-@Getter
+@Data
 @SuperBuilder
 public class TimeCapsuleDto extends BaseDto {
 
@@ -25,8 +25,4 @@ public class TimeCapsuleDto extends BaseDto {
 	private UUID creator;
 
 	private List<TimeCapsuleMemberDto> friends;
-
-	public void insertFriends(List<TimeCapsuleMemberDto> friends) {
-		this.friends = friends;
-	}
 }

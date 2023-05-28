@@ -67,12 +67,12 @@ public class TimeCapsuleController {
 		@PathVariable("time-capsule") UUID timeCapsuleId) {
 		System.out.println(member);
 		TimeCapsuleDto timeCapsuleDto = timeCapsuleService.selectTimeCapsule(
-			timeCapsuleDtoMapper.toTimeCapsuleCheckDto(member, timeCapsuleId)
+			timeCapsuleDtoMapper.toTimeCapsuleBasicIdsDto(member, timeCapsuleId)
 		);
 
 		return ResponseEntity.ok(ResponseDto.builder()
 			.code(HttpStatus.OK)
-			.msg("타임캡슐이 열렸습니다.")
+			.msg(timeCapsuleDto.getTitle() + " 타임캡슐 정보 조회가 완료되었습니다.")
 			.data(timeCapsuleDtoMapper.toGetOneTimeCapsuleResponse(timeCapsuleDto))
 			.build());
 	}
