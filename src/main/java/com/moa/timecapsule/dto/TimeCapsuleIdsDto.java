@@ -7,7 +7,7 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @SuperBuilder
-public class TimeCapsuleBasicIdsDto extends BaseDto {
+public class TimeCapsuleIdsDto extends BaseDto {
 	UUID memberId;
 
 	UUID timeCapsuleId;

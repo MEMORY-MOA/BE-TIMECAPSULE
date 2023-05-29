@@ -66,7 +66,7 @@ public class TimeCapsuleController {
 	public ResponseEntity<?> getOneTimeCapsule(@RequestHeader("member") UUID member,
 		@PathVariable("time-capsule") UUID timeCapsuleId) {
 		TimeCapsuleDto timeCapsuleDto = timeCapsuleService.selectTimeCapsule(
-			timeCapsuleDtoMapper.toTimeCapsuleBasicIdsDto(member, timeCapsuleId)
+			timeCapsuleDtoMapper.toTimeCapsuleIdsDto(member, timeCapsuleId)
 		);
 
 		return ResponseEntity.ok(ResponseDto.builder()

@@ -1,7 +1,7 @@
 package com.moa.timecapsule.service;
 
-import com.moa.timecapsule.dto.TimeCapsuleBasicIdsDto;
 import com.moa.timecapsule.dto.TimeCapsuleDto;
+import com.moa.timecapsule.dto.TimeCapsuleIdsDto;
 import com.moa.timecapsule.dto.TimeCapsuleTextDto;
 
 public interface TimeCapsuleService {
@@ -9,5 +9,5 @@ public interface TimeCapsuleService {
 
 	TimeCapsuleTextDto insertTimeCapsuleText(TimeCapsuleTextDto timeCapsuleTextDto);
 
-	TimeCapsuleDto selectTimeCapsule(TimeCapsuleBasicIdsDto timeCapsuleBasicIdsDto);
+	TimeCapsuleDto selectTimeCapsule(TimeCapsuleIdsDto timeCapsuleIdsDto);
 }

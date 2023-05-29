@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.moa.timecapsule.client.MemberFeignClient;
-import com.moa.timecapsule.dto.TimeCapsuleBasicIdsDto;
 import com.moa.timecapsule.dto.TimeCapsuleDto;
+import com.moa.timecapsule.dto.TimeCapsuleIdsDto;
 import com.moa.timecapsule.dto.TimeCapsuleMemberDto;
 import com.moa.timecapsule.dto.TimeCapsuleTextDto;
 import com.moa.timecapsule.entity.TimeCapsuleMember;
@@ -64,14 +64,14 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 	}
 
 	@Override
-	public TimeCapsuleDto selectTimeCapsule(TimeCapsuleBasicIdsDto timeCapsuleBasicIdsDto) {
-		checkTimeCapsuleMember(timeCapsuleBasicIdsDto.getTimeCapsuleId(), timeCapsuleBasicIdsDto.getMemberId());
+	public TimeCapsuleDto selectTimeCapsule(TimeCapsuleIdsDto timeCapsuleIdsDto) {
+		checkTimeCapsuleMember(timeCapsuleIdsDto.getTimeCapsuleId(), timeCapsuleIdsDto.getMemberId());
 
 		Timecapsule timecapsule = timeCapsuleRepository.findTimecapsuleByTimeCapsuleId(
-			timeCapsuleBasicIdsDto.getTimeCapsuleId());
+			timeCapsuleIdsDto.getTimeCapsuleId());
 
 		List<UUID> friendsIdList = timeCapsuleMemberRepository.findByTimeCapsuleId(
-			timeCapsuleBasicIdsDto.getTimeCapsuleId())
+			timeCapsuleIdsDto.getTimeCapsuleId())
 			.stream()
 			.map(timeCapsuleMember -> timeCapsuleMember.getMemberId())
 			.toList();
