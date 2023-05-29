@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @Builder
 public class ResponseDto<D> {
-	private final HttpStatus code;
+	private final HttpStatus httpStatus;
 	private final String msg;
 	private final D data;
 }

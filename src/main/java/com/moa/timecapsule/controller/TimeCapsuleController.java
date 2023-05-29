@@ -39,13 +39,14 @@ public class TimeCapsuleController {
 		TimeCapsuleDto timeCapsuleDto = timeCapsuleService.insertTimeCapsule(
 			timeCapsuleDtoMapper.fromGenerateTimeCapsuleRequest(member, request));
 
-		return ResponseEntity.ok(ResponseDto.builder()
-			.code(HttpStatus.OK)
-			.msg("타임캡슐이 생성되었습니다.")
-			.data(TimeCapsuleIdResponse.builder()
-				.timeCapsuleId(timeCapsuleDto.getTimeCapsuleId())
-				.build())
-			.build());
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ResponseDto.builder()
+				.httpStatus(HttpStatus.OK)
+				.msg("타임캡슐이 생성되었습니다.")
+				.data(TimeCapsuleIdResponse.builder()
+					.timeCapsuleId(timeCapsuleDto.getTimeCapsuleId())
+					.build())
+				.build());
 	}
 
 	@PostMapping("/{time-capsule}/text")
@@ -55,11 +56,12 @@ public class TimeCapsuleController {
 		TimeCapsuleTextDto timeCapsuleTextDto = timeCapsuleService.insertTimeCapsuleText(
 			timeCapsuleDtoMapper.fromGenerateTimeCapsuleTextRequest(member, timeCapsuleId, request));
 
-		return ResponseEntity.ok(ResponseDto.builder()
-			.code(HttpStatus.OK)
-			.msg("편지가 타임캡슐에 담겼습니다.")
-			.data(timeCapsuleDtoMapper.toGenerateTimeCapsuleTextResponse(timeCapsuleTextDto))
-			.build());
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ResponseDto.builder()
+				.httpStatus(HttpStatus.OK)
+				.msg("편지가 타임캡슐에 담겼습니다.")
+				.data(timeCapsuleDtoMapper.toGenerateTimeCapsuleTextResponse(timeCapsuleTextDto))
+				.build());
 	}
 
 	@GetMapping("/{time-capsule}")
@@ -69,10 +71,11 @@ public class TimeCapsuleController {
 			timeCapsuleDtoMapper.toTimeCapsuleIdsDto(member, timeCapsuleId)
 		);
 
-		return ResponseEntity.ok(ResponseDto.builder()
-			.code(HttpStatus.OK)
-			.msg(timeCapsuleDto.getTitle() + " 타임캡슐 정보 조회가 완료되었습니다.")
-			.data(timeCapsuleDtoMapper.toGetOneTimeCapsuleResponse(timeCapsuleDto))
-			.build());
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ResponseDto.builder()
+				.httpStatus(HttpStatus.OK)
+				.msg(timeCapsuleDto.getTitle() + " 타임캡슐 정보 조회가 완료되었습니다.")
+				.data(timeCapsuleDtoMapper.toGetOneTimeCapsuleResponse(timeCapsuleDto))
+				.build());
 	}
 }
