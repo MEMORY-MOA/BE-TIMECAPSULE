@@ -7,6 +7,10 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class TimeCapsuleIdResponse {
-	private UUID timeCapsuleId;
+public class TimeCapsuleTextResponse {
+
+	private UUID memberId;
+
+	private String text;
+
 }
