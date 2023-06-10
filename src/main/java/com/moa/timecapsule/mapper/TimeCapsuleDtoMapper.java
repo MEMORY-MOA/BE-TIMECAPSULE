@@ -21,15 +21,6 @@ public interface TimeCapsuleDtoMapper {
 	@Mapping(target = "friends", expression = "java(uuidToTimeCapsuleDto(generateTimeCapsuleRequest.getFriends()))")
 	TimeCapsuleDto fromGenerateTimeCapsuleRequest(UUID memberId, GenerateTimeCapsuleRequest generateTimeCapsuleRequest);
 
-	TimeCapsuleTextDto fromGenerateTimeCapsuleTextRequest(
-		GenerateTimeCapsuleContentRequest generateTimeCapsuleContentRequest);
-
-	TimeCapsuleTextDto fromGenerateTimeCapsuleTextRequest(
-		UUID memberId, UUID timeCapsuleId,
-		GenerateTimeCapsuleContentRequest generateTimeCapsuleContentRequest);
-
-	TimeCapsuleTextDto toGenerateTimeCapsuleTextResponse(TimeCapsuleTextDto timeCapsuleTextDto);
-
 	TimeCapsuleIdsDto toTimeCapsuleIdsDto(UUID memberId, UUID timeCapsuleId);
 
 	GetOneTimeCapsuleResponse toGetOneTimeCapsuleResponse(TimeCapsuleDto timeCapsuleDto);

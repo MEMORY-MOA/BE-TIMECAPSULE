@@ -49,21 +49,6 @@ public class TimeCapsuleController {
 				.build());
 	}
 
-	@PostMapping("/{time-capsule}/text")
-	public ResponseEntity<ResponseDto> generateTimeCapsuleText(@RequestHeader("member") UUID member,
-		@PathVariable("time-capsule") UUID timeCapsuleId,
-		@RequestBody GenerateTimeCapsuleContentRequest request) {
-		TimeCapsuleTextDto timeCapsuleTextDto = timeCapsuleService.insertTimeCapsuleText(
-			timeCapsuleDtoMapper.fromGenerateTimeCapsuleTextRequest(member, timeCapsuleId, request));
-
-		return ResponseEntity.status(HttpStatus.OK)
-			.body(ResponseDto.builder()
-				.httpStatus(HttpStatus.OK)
-				.msg("편지가 타임캡슐에 담겼습니다.")
-				.data(timeCapsuleDtoMapper.toGenerateTimeCapsuleTextResponse(timeCapsuleTextDto))
-				.build());
-	}
-
 	@GetMapping("/{time-capsule}")
 	public ResponseEntity<?> getOneTimeCapsule(@RequestHeader("member") UUID member,
 		@PathVariable("time-capsule") UUID timeCapsuleId) {

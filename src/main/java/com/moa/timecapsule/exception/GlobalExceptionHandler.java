@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({MethodArgumentNotValidException.class})
 	public ResponseEntity<ResponseDto<?>> handleValidationException(MethodArgumentNotValidException ex) {
 		ResponseDto<?> responseDto = ResponseDto.builder()
-			.code(HttpStatus.BAD_REQUEST)
+			.httpStatus(HttpStatus.BAD_REQUEST)
 			.msg("유효하지 않은 요청: " + ex.getMessage())
 			.build();
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(NotFoundException.class)
 	public ResponseEntity<ResponseDto<?>> handleNotFoundException(NotFoundException ex) {
 		ResponseDto<?> responseDto = ResponseDto.builder()
-			.code(HttpStatus.NOT_FOUND)
+			.httpStatus(HttpStatus.NOT_FOUND)
 			.msg("찾을 수 없음: " + ex.getMessage())
 			.build();
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDto);
