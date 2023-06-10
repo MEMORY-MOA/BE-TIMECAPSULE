@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,6 +42,20 @@ public class TimeCapsuleContentController {
 				.httpStatus(HttpStatus.OK)
 				.msg("편지가 타임캡슐에 담겼습니다.")
 				.data(timeCapsuleContentDtoMapper.toGenerateTimeCapsuleTextResponse(timeCapsuleTextDto))
+				.build());
+	}
+
+	@GetMapping("/text/{text-id}")
+	public ResponseEntity<ResponseDto> openTimeCapsuleText(@RequestHeader("member") UUID member,
+		@PathVariable("time-capsule") UUID timeCapsuleId,
+		@PathVariable("text-id") UUID timeCapsuleTextId) {
+		TimeCapsuleTextDto timeCapsuleTextDto = timeCapsuleContentService.selectTimeCapsuleText(timeCapsuleTextId);
+
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ResponseDto.builder()
+				.httpStatus(HttpStatus.OK)
+				.msg("편지를 열었습니다")
+				.data(timeCapsuleContentDtoMapper.toGetOneTimeCapsuleTextResponse(timeCapsuleTextDto))
 				.build());
 	}
 }

@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class TimeCapsuleContentServiceImpl  implements TimeCapsuleContentService {
+public class TimeCapsuleContentServiceImpl implements TimeCapsuleContentService {
 	private final TimeCapsuleTextRepository timeCapsuleTextRepository;
 	private final TimeCapsuleMemberRepository timeCapsuleMemberRepository;
 
@@ -31,6 +31,14 @@ public class TimeCapsuleContentServiceImpl  implements TimeCapsuleContentService
 
 		TimeCapsuleText timeCapsuleText = timeCapsuleTextRepository.save(
 			timeCapsuleContentMapper.toEntity(timeCapsuleTextDto));
+
+		return timeCapsuleContentMapper.toDto(timeCapsuleText);
+	}
+
+	@Override
+	public TimeCapsuleTextDto selectTimeCapsuleText(UUID timeCapsuleTextId) {
+		TimeCapsuleText timeCapsuleText = timeCapsuleTextRepository.findByTimeCapsuleTextId(timeCapsuleTextId)
+			.orElseThrow(() -> new NotFoundException("해당 타임캡슐 텍스트가 없습니다."));
 
 		return timeCapsuleContentMapper.toDto(timeCapsuleText);
 	}
