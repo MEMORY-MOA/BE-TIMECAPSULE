@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.mapstruct.Mapper;
 
 import com.moa.timecapsule.controller.request.GenerateTimeCapsuleContentRequest;
-import com.moa.timecapsule.controller.response.GetOneTimeCapsuleTextResponse;
+import com.moa.timecapsule.controller.response.TimeCapsuleTextResponse;
 import com.moa.timecapsule.dto.TimeCapsuleTextDto;
 
 @Mapper(componentModel = "spring")
@@ -14,7 +14,6 @@ public interface TimeCapsuleContentDtoMapper {
 		UUID memberId, UUID timeCapsuleId,
 		GenerateTimeCapsuleContentRequest generateTimeCapsuleContentRequest);
 
-	TimeCapsuleTextDto toGenerateTimeCapsuleTextResponse(TimeCapsuleTextDto timeCapsuleTextDto);
+	TimeCapsuleTextResponse toTimeCapsuleTextResponse(TimeCapsuleTextDto timeCapsuleTextDto);
 
-	GetOneTimeCapsuleTextResponse toGetOneTimeCapsuleTextResponse(TimeCapsuleTextDto timeCapsuleTextDto);
 }

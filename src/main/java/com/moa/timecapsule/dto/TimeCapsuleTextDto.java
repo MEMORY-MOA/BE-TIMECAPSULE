@@ -2,10 +2,10 @@ package com.moa.timecapsule.dto;
 
 import java.util.UUID;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
-@Getter
+@Data
 @SuperBuilder
 public class TimeCapsuleTextDto extends BaseDto {
 

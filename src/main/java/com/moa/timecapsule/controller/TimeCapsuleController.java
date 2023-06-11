@@ -60,7 +60,7 @@ public class TimeCapsuleController {
 			.body(ResponseDto.builder()
 				.httpStatus(HttpStatus.OK)
 				.msg(timeCapsuleDto.getTitle() + " 타임캡슐 정보 조회가 완료되었습니다.")
-				.data(timeCapsuleDtoMapper.toGetOneTimeCapsuleResponse(timeCapsuleDto))
+				.data(timeCapsuleDtoMapper.toTimeCapsuleResponse(timeCapsuleDto))
 				.build());
 	}
 }

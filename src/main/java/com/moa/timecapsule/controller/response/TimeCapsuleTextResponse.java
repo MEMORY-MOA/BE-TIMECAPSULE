@@ -8,8 +8,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class TimeCapsuleTextResponse {
-
-	private UUID memberId;
+	private UUID timeCapsuleTextId;
 
 	private String text;
 

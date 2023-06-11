@@ -1,5 +1,6 @@
 package com.moa.timecapsule.service.implement;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -23,6 +24,13 @@ public class TimeCapsuleContentServiceImpl implements TimeCapsuleContentService 
 	private final TimeCapsuleMemberRepository timeCapsuleMemberRepository;
 
 	private final TimeCapsuleContentMapper timeCapsuleContentMapper;
+
+	@Override
+	public List<TimeCapsuleTextDto> selectTimeCapsuleTextList(UUID timeCapsuleId) {
+		List<TimeCapsuleText> timeCapsuleTextList = timeCapsuleTextRepository.findByTimeCapsuleId(timeCapsuleId);
+
+		return timeCapsuleContentMapper.toDto(timeCapsuleTextList);
+	}
 
 	@Override
 	@Transactional
