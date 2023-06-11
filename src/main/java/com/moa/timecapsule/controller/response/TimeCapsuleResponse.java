@@ -11,7 +11,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class GetOneTimeCapsuleResponse {
+public class TimeCapsuleResponse {
 
 	private UUID timeCapsuleId;
 
