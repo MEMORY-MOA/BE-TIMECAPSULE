@@ -5,8 +5,8 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,9 +22,9 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class Timecapsule extends BaseEntity {
 	@Id
-	@GeneratedValue
-	@UuidGenerator
-	@JdbcTypeCode(Types.VARCHAR)
+	@GeneratedValue(generator = "uuid2")
+	@GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+	@Column(columnDefinition = "BINARY(16)")
 	private UUID timeCapsuleId;
 
 	@Column(nullable = false)
@@ -39,6 +39,7 @@ public class Timecapsule extends BaseEntity {
 	@ColumnDefault("false")
 	private boolean isOpened;
 
-	@Column(nullable = false)
+	@GenericGenerator(name = "uuid2", strategy = "uuid2")
+	@Column(nullable = false, columnDefinition = "BINARY(16)")
 	private UUID creator;
 }

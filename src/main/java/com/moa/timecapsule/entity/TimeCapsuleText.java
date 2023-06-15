@@ -9,6 +9,7 @@ import org.hibernate.annotations.UuidGenerator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,15 +22,17 @@ import lombok.experimental.SuperBuilder;
 public class TimeCapsuleText extends BaseEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)
 	@UuidGenerator
 	@JdbcTypeCode(Types.VARCHAR)
 	private UUID timeCapsuleTextId;
 
 	@Column(nullable = false)
+	@JdbcTypeCode(Types.VARCHAR)
 	private UUID timeCapsuleId;
 
 	@Column(nullable = false)
+	@JdbcTypeCode(Types.VARCHAR)
 	private UUID memberId;
 
 	@Column(nullable = false)

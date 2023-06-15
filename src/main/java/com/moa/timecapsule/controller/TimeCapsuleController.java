@@ -1,7 +1,9 @@
 package com.moa.timecapsule.controller;
 
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,6 +63,22 @@ public class TimeCapsuleController {
 				.httpStatus(HttpStatus.OK)
 				.msg(timeCapsuleDto.getTitle() + " 타임캡슐 정보 조회가 완료되었습니다.")
 				.data(timeCapsuleDtoMapper.toTimeCapsuleResponse(timeCapsuleDto))
+				.build());
+	}
+
+	@GetMapping("/list/{page}")
+	public ResponseEntity<ResponseDto> getTimeCapsules(@RequestHeader("member") UUID member,
+		@PathVariable("page") Integer page) {
+		int size = 10;
+		PageRequest pageRequest = PageRequest.of(page, size);
+
+		List<TimeCapsuleDto> timeCapsuleDtoList = timeCapsuleService.selectTimeCapsules(member, pageRequest);
+
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ResponseDto.builder()
+				.httpStatus(HttpStatus.OK)
+				.msg("타임캡슐 정보 조회가 완료되었습니다.")
+				.data(timeCapsuleDtoMapper.toTimeCapsuleResponse(timeCapsuleDtoList))
 				.build());
 	}
 }
