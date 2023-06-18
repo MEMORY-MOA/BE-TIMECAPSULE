@@ -7,13 +7,11 @@ import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.moa.timecapsule.controller.request.GenerateTimeCapsuleContentRequest;
 import com.moa.timecapsule.controller.request.GenerateTimeCapsuleRequest;
-import com.moa.timecapsule.controller.response.GetOneTimeCapsuleResponse;
+import com.moa.timecapsule.controller.response.TimeCapsuleResponse;
 import com.moa.timecapsule.dto.TimeCapsuleDto;
 import com.moa.timecapsule.dto.TimeCapsuleIdsDto;
 import com.moa.timecapsule.dto.TimeCapsuleMemberDto;
-import com.moa.timecapsule.dto.TimeCapsuleTextDto;
 
 @Mapper(componentModel = "spring")
 public interface TimeCapsuleDtoMapper {
@@ -21,18 +19,9 @@ public interface TimeCapsuleDtoMapper {
 	@Mapping(target = "friends", expression = "java(uuidToTimeCapsuleDto(generateTimeCapsuleRequest.getFriends()))")
 	TimeCapsuleDto fromGenerateTimeCapsuleRequest(UUID memberId, GenerateTimeCapsuleRequest generateTimeCapsuleRequest);
 
-	TimeCapsuleTextDto fromGenerateTimeCapsuleTextRequest(
-		GenerateTimeCapsuleContentRequest generateTimeCapsuleContentRequest);
-
-	TimeCapsuleTextDto fromGenerateTimeCapsuleTextRequest(
-		UUID memberId, UUID timeCapsuleId,
-		GenerateTimeCapsuleContentRequest generateTimeCapsuleContentRequest);
-
-	TimeCapsuleTextDto toGenerateTimeCapsuleTextResponse(TimeCapsuleTextDto timeCapsuleTextDto);
-
 	TimeCapsuleIdsDto toTimeCapsuleIdsDto(UUID memberId, UUID timeCapsuleId);
 
-	GetOneTimeCapsuleResponse toGetOneTimeCapsuleResponse(TimeCapsuleDto timeCapsuleDto);
+	TimeCapsuleResponse toTimeCapsuleResponse(TimeCapsuleDto timeCapsuleDto);
 
 	default List<TimeCapsuleMemberDto> uuidToTimeCapsuleDto(List<UUID> friends) {
 		List<TimeCapsuleMemberDto> list = new ArrayList<>();

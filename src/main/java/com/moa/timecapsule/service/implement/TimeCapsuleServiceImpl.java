@@ -31,7 +31,6 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 
 	private final TimeCapsuleRepository timeCapsuleRepository;
 	private final TimeCapsuleMemberRepository timeCapsuleMemberRepository;
-	private final TimeCapsuleTextRepository timeCapsuleTextRepository;
 
 	private final TimeCapsuleMapper timeCapsuleMapper;
 
@@ -50,17 +49,6 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 		}
 
 		return timeCapsuleMapper.toDto(timecapsule);
-	}
-
-	@Override
-	@Transactional
-	public TimeCapsuleTextDto insertTimeCapsuleText(TimeCapsuleTextDto timeCapsuleTextDto) {
-		checkTimeCapsuleMember(timeCapsuleTextDto.getTimeCapsuleId(), timeCapsuleTextDto.getMemberId());
-
-		TimeCapsuleText timeCapsuleText = timeCapsuleTextRepository.save(
-			timeCapsuleMapper.toEntity(timeCapsuleTextDto));
-
-		return timeCapsuleMapper.toDto(timeCapsuleText);
 	}
 
 	@Override
