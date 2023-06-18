@@ -16,4 +16,6 @@ public class TimeCapsuleTextDto extends BaseDto {
 	private UUID memberId;
 
 	private String text;
+
+	private TimeCapsuleMemberDto timeCapsuleMemberDto;
 }
