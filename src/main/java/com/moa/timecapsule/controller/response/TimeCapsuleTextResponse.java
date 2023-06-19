@@ -12,4 +12,5 @@ public class TimeCapsuleTextResponse {
 
 	private String text;
 
+	private String nickname;
 }
