@@ -31,7 +31,7 @@ public class InvitationToTimeCapsuleController {
 		return ResponseEntity.status(HttpStatus.OK)
 			.body(ResponseDto.builder()
 				.httpStatus(HttpStatus.OK)
-				.msg("초대 링크가 생성되었습니다.")
+				.msg("초대 정보가 생성되었습니다.")
 				.data(invitationToTimeCapsuleDtoMapper.toInvitationLinkResponse(invitationDto))
 				.build());
 	}
