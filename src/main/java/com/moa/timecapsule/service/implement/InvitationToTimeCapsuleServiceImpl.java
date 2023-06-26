@@ -1,6 +1,7 @@
 package com.moa.timecapsule.service.implement;
 
 import com.moa.timecapsule.client.MemberFeignClient;
+import com.moa.timecapsule.dto.FriendDto;
 import com.moa.timecapsule.dto.InvitationDto;
 import com.moa.timecapsule.dto.TimeCapsuleMemberDto;
 import com.moa.timecapsule.entity.TimeCapsuleMember;
@@ -47,8 +48,10 @@ public class InvitationToTimeCapsuleServiceImpl implements InvitationToTimeCapsu
 
 	@Override
 	public void accept(UUID member, UUID timeCapsuleId) {
-		// feign client로 회원 및 수락
+		Timecapsule timecapsule = timeCapsuleRepository.findTimecapsuleByTimeCapsuleId(timeCapsuleId)
+			.orElseThrow(() -> new NotFoundException("타임캡슐을 찾을 수가 없습니다."));
 
+		memberFeignClient.acceptFriend(FriendDto.builder().memberId(timecapsule.getCreator()).friendId(member).build());
 
 		timeCapsuleMemberRepository.save(
 			TimeCapsuleMember.builder()

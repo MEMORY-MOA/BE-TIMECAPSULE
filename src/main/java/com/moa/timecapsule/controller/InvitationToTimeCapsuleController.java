@@ -36,7 +36,7 @@ public class InvitationToTimeCapsuleController {
 				.build());
 	}
 
-	@GetMapping("acceptance")
+	@GetMapping("/acceptance")
 	public ResponseEntity<ResponseDto> accept(@RequestHeader("member") UUID member,
 											  @PathVariable("time-capsule") UUID timeCapsuleId) {
 		invitationToTimeCapsuleService.accept(member, timeCapsuleId);
