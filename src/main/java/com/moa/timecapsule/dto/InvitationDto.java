@@ -12,6 +12,9 @@ public class InvitationDto {
 
 	private UUID timeCapsuleId;
 
+	private String title;
+
 	private LocalDateTime expiredAt;
 
+	private TimeCapsuleMemberDto timeCapsuleMemberDto;
 }

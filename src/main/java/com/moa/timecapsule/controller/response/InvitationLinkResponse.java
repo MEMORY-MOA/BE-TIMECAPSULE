@@ -1,5 +1,6 @@
 package com.moa.timecapsule.controller.response;
 
+import com.moa.timecapsule.dto.TimeCapsuleMemberDto;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,4 +14,8 @@ public class InvitationLinkResponse {
 	private UUID timeCapsuleId;
 
 	private LocalDateTime expiredAt;
+
+	private String title;
+
+	private TimeCapsuleMemberDto timeCapsuleMemberDto;
 }

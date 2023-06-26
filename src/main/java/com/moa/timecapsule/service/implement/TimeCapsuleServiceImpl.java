@@ -56,7 +56,7 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 		checkTimeCapsuleMember(timeCapsuleIdsDto.getTimeCapsuleId(), timeCapsuleIdsDto.getMemberId());
 
 		Timecapsule timecapsule = timeCapsuleRepository.findTimecapsuleByTimeCapsuleId(
-			timeCapsuleIdsDto.getTimeCapsuleId());
+			timeCapsuleIdsDto.getTimeCapsuleId()).orElseThrow(() -> new NotFoundException("타임캡슐을 찾을 수가 없습니다."));
 
 		List<UUID> friendsIdList = timeCapsuleMemberRepository.findByTimeCapsuleId(
 			timeCapsuleIdsDto.getTimeCapsuleId())
