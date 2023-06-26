@@ -1,6 +1,8 @@
 package com.moa.timecapsule.service.implement;
 
 import com.moa.timecapsule.dto.InvitationDto;
+import com.moa.timecapsule.entity.TimeCapsuleMember;
+import com.moa.timecapsule.repository.TimeCapsuleMemberRepository;
 import com.moa.timecapsule.service.InvitationToTimeCapsuleService;
 import com.moa.timecapsule.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,8 @@ public class InvitationToTimeCapsuleServiceImpl implements InvitationToTimeCapsu
 
 	private final RedisUtil redisUtil;
 
+	private final TimeCapsuleMemberRepository timeCapsuleMemberRepository;
+
 	@Override
 	public InvitationDto create(UUID member, UUID timeCapsuleId) {
 		LocalDateTime expiredAt = LocalDateTime.now().plusDays(1);
@@ -24,5 +28,17 @@ public class InvitationToTimeCapsuleServiceImpl implements InvitationToTimeCapsu
 			.timeCapsuleId(timeCapsuleId)
 			.expiredAt(expiredAt)
 			.build();
+	}
+
+	@Override
+	public void accept(UUID member, UUID timeCapsuleId) {
+		// feign client로 회원 및 수락
+
+
+		timeCapsuleMemberRepository.save(
+			TimeCapsuleMember.builder()
+				.timeCapsuleId(timeCapsuleId)
+				.memberId(member)
+				.build());
 	}
 }

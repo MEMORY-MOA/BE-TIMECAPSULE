@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/time-capsules/{time-capsule}/invite")
+@RequestMapping("/time-capsules/{time-capsule}/invitation")
 @RequiredArgsConstructor
 @Slf4j
 public class InvitationToTimeCapsuleController {
@@ -33,6 +33,18 @@ public class InvitationToTimeCapsuleController {
 				.httpStatus(HttpStatus.OK)
 				.msg("초대 정보가 생성되었습니다.")
 				.data(invitationToTimeCapsuleDtoMapper.toInvitationLinkResponse(invitationDto))
+				.build());
+	}
+
+	@GetMapping("acceptance")
+	public ResponseEntity<ResponseDto> accept(@RequestHeader("member") UUID member,
+											  @PathVariable("time-capsule") UUID timeCapsuleId) {
+		invitationToTimeCapsuleService.accept(member, timeCapsuleId);
+
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ResponseDto.builder()
+				.httpStatus(HttpStatus.OK)
+				.msg("초대를 수락하셨습니다.")
 				.build());
 	}
 }
