@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.moa.timecapsule.client.MemberFeignClient;
+import com.moa.timecapsule.dto.TimeCapsuleMemberDto;
 import com.moa.timecapsule.dto.TimeCapsuleTextDto;
 import com.moa.timecapsule.entity.TimeCapsuleText;
 import com.moa.timecapsule.exception.NotFoundException;
@@ -24,6 +26,8 @@ public class TimeCapsuleContentServiceImpl implements TimeCapsuleContentService 
 	private final TimeCapsuleMemberRepository timeCapsuleMemberRepository;
 
 	private final TimeCapsuleContentMapper timeCapsuleContentMapper;
+
+	private final MemberFeignClient memberFeignClient;
 
 	@Override
 	public List<TimeCapsuleTextDto> selectTimeCapsuleTextList(UUID timeCapsuleId) {
@@ -48,7 +52,12 @@ public class TimeCapsuleContentServiceImpl implements TimeCapsuleContentService 
 		TimeCapsuleText timeCapsuleText = timeCapsuleTextRepository.findByTimeCapsuleTextId(timeCapsuleTextId)
 			.orElseThrow(() -> new NotFoundException("해당 타임캡슐 텍스트가 없습니다."));
 
-		return timeCapsuleContentMapper.toDto(timeCapsuleText);
+		TimeCapsuleMemberDto timeCapsuleMemberDto = memberFeignClient.getMemberInfo(timeCapsuleText.getMemberId());
+
+		TimeCapsuleTextDto timeCapsuleTextDto = timeCapsuleContentMapper.toDto(timeCapsuleText);
+		timeCapsuleTextDto.setTimeCapsuleMemberDto(timeCapsuleMemberDto);
+
+		return timeCapsuleTextDto;
 	}
 
 	private void checkTimeCapsuleMember(UUID timeCapsuleId, UUID memberId) {

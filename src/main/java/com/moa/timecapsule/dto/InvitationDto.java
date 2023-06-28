@@ -1,21 +1,20 @@
 package com.moa.timecapsule.dto;
 
-import java.util.UUID;
-
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Data
 @SuperBuilder
-public class TimeCapsuleTextDto extends BaseDto {
-
-	private UUID timeCapsuleTextId;
+public class InvitationDto {
 
 	private UUID timeCapsuleId;
 
-	private UUID memberId;
+	private String title;
 
-	private String text;
+	private LocalDateTime expiredAt;
 
 	private TimeCapsuleMemberDto timeCapsuleMemberDto;
 }

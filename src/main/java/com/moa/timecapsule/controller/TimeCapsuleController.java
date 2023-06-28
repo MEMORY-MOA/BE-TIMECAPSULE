@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.moa.timecapsule.controller.request.GenerateTimeCapsuleContentRequest;
 import com.moa.timecapsule.controller.request.GenerateTimeCapsuleRequest;
 import com.moa.timecapsule.controller.response.ResponseDto;
 import com.moa.timecapsule.controller.response.TimeCapsuleIdResponse;
 import com.moa.timecapsule.dto.TimeCapsuleDto;
-import com.moa.timecapsule.dto.TimeCapsuleTextDto;
 import com.moa.timecapsule.mapper.TimeCapsuleDtoMapper;
 import com.moa.timecapsule.service.TimeCapsuleService;
 
