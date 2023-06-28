@@ -24,15 +24,13 @@ public class TimeCapsuleText extends BaseEntity {
 	@Id
 	@GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)
 	@UuidGenerator
-	@JdbcTypeCode(Types.VARCHAR)
+	@Column(columnDefinition = "BINARY(16)")
 	private UUID timeCapsuleTextId;
 
-	@Column(nullable = false)
-	@JdbcTypeCode(Types.VARCHAR)
+	@Column(nullable = false, columnDefinition = "BINARY(16)")
 	private UUID timeCapsuleId;
 
-	@Column(nullable = false)
-	@JdbcTypeCode(Types.VARCHAR)
+	@Column(nullable = false, columnDefinition = "BINARY(16)")
 	private UUID memberId;
 
 	@Column(nullable = false)

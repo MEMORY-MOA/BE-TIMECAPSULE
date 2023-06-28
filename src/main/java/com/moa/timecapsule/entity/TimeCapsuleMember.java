@@ -24,11 +24,9 @@ public class TimeCapsuleMember extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long timeCapsuleMemberId;
 
-	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	@Column(nullable = false, columnDefinition = "BINARY(16)")
 	private UUID timeCapsuleId;
 
-	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	@Column(nullable = false, columnDefinition = "BINARY(16)")
 	private UUID memberId;
 }

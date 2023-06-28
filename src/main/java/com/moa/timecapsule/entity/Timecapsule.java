@@ -39,7 +39,6 @@ public class Timecapsule extends BaseEntity {
 	@ColumnDefault("false")
 	private boolean isOpened;
 
-	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	@Column(nullable = false, columnDefinition = "BINARY(16)")
 	private UUID creator;
 }
