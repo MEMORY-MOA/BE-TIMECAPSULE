@@ -9,6 +9,7 @@ import com.moa.timecapsule.dto.FeignFriendIdListDto;
 import com.moa.timecapsule.dto.FriendIdListDto;
 import com.moa.timecapsule.dto.FriendSearchDto;
 import com.moa.timecapsule.dto.TimeCapsuleSearchDto;
+import com.moa.timecapsule.dto.TimeCapsuleSearchListDto;
 import com.moa.timecapsule.entity.Timecapsule;
 
 @Mapper(componentModel = "spring")
@@ -19,5 +20,5 @@ public interface TimeCapsuleSearchMapper {
 
 	TimeCapsuleSearchDto entityToDto(Timecapsule timeCapsule);
 
-	TimeCapsuleSearchResponse dtoToResponse(TimeCapsuleSearchDto timecapsuleSearchDto);
+	TimeCapsuleSearchResponse dtoToResponse(TimeCapsuleSearchListDto timecapsuleSearchListDto);
 }

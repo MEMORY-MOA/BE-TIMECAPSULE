@@ -1,7 +1,8 @@
 package com.moa.timecapsule.controller.response;
 
-import java.time.LocalDate;
-import java.util.UUID;
+import java.util.List;
+
+import com.moa.timecapsule.dto.TimeCapsuleSearchDto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -9,13 +10,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class TimeCapsuleSearchResponse {
-	private UUID timeCapsuleId;
-
-	private String title;
-
-	private LocalDate closedAt;
-
-	private LocalDate openedAt;
-
-	private boolean isOpened;
+	private int timeCapsulesCnt;
+	private int timeCapsulesPage;
+	private List<TimeCapsuleSearchDto> timeCapsuleSearchDtoList;
 }

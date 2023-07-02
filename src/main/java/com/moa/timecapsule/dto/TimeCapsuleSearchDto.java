@@ -1,16 +1,13 @@
 package com.moa.timecapsule.dto;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.SuperBuilder;
 
 @Data
-@SuperBuilder
-public class TimeCapsuleSearchDto extends BaseDto {
-
-	private UUID timeCapsuleId;
+@Builder
+public class TimeCapsuleSearchDto {
 
 	private String title;
 

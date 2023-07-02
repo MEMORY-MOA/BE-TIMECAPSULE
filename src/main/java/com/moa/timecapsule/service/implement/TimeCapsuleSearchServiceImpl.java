@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +14,7 @@ import com.moa.timecapsule.dto.FeignFriendIdListDto;
 import com.moa.timecapsule.dto.FriendIdListDto;
 import com.moa.timecapsule.dto.FriendSearchDto;
 import com.moa.timecapsule.dto.TimeCapsuleSearchDto;
+import com.moa.timecapsule.dto.TimeCapsuleSearchListDto;
 import com.moa.timecapsule.entity.TimeCapsuleMember;
 import com.moa.timecapsule.entity.Timecapsule;
 import com.moa.timecapsule.mapper.TimeCapsuleSearchMapper;
@@ -39,8 +42,8 @@ public class TimeCapsuleSearchServiceImpl implements TimeCapsuleSearchService {
 	}
 
 	@Override
-	public List<TimeCapsuleSearchDto> findTimeCapsuleByKeyword(UUID memberId, FriendIdListDto friendIdListDto,
-		String keyword) {
+	public TimeCapsuleSearchListDto findTimeCapsuleByKeyword(UUID memberId, FriendIdListDto friendIdListDto,
+		String keyword, Pageable pageable, int page) {
 		List<TimeCapsuleMember> timeCapsuleMembers = timeCapsuleMemberRepository.findByMemberId(memberId);
 		List<UUID> friendIdList = friendIdListDto.getFriendIdList();
 		List<UUID> timeCapsuleIdList = new ArrayList<>();
@@ -55,12 +58,16 @@ public class TimeCapsuleSearchServiceImpl implements TimeCapsuleSearchService {
 			}
 		}
 
-		List<Timecapsule> timecapsuleList = timeCapsuleRepository.findTimecapsuleByTimeCapsuleIdInOrTitle(
-			timeCapsuleIdList, keyword);
+		Page<Timecapsule> pages = timeCapsuleRepository.findTimecapsuleByTimeCapsuleIdInOrTitle(
+			timeCapsuleIdList, keyword, pageable);
 		List<TimeCapsuleSearchDto> timeCapsuleSearchDtoList = new ArrayList<>();
-		for (Timecapsule timeCapsule : timecapsuleList) {
+		for (Timecapsule timeCapsule : pages.getContent()) {
 			timeCapsuleSearchDtoList.add(timeCapsuleSearchMapper.entityToDto(timeCapsule));
 		}
-		return timeCapsuleSearchDtoList;
+		return TimeCapsuleSearchListDto.builder()
+			.timeCapsulesCnt((int)pages.getTotalElements())
+			.timeCapsulesPage(page)
+			.timeCapsuleSearchDtoList(timeCapsuleSearchDtoList)
+			.build();
 	}
 }
