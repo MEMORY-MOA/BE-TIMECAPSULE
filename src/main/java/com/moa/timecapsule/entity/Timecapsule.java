@@ -38,7 +38,7 @@ public class Timecapsule extends BaseEntity {
 
 	@ColumnDefault("false")
 	private boolean isOpened;
-	// 따로 인덱싱을 해야 할 듯? 위에 @Id가 있기 때문에
+
 	@Column(nullable = false)
 	private UUID creator;
 }
