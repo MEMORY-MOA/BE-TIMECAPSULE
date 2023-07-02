@@ -6,8 +6,10 @@ import java.util.UUID;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.moa.timecapsule.dto.FeignFriendIdListDto;
 import com.moa.timecapsule.dto.TimeCapsuleMemberDto;
 
 @FeignClient(name = "memberFeignClient", url = "http://localhost:8080")
@@ -18,4 +20,9 @@ public interface MemberFeignClient {
 
 	@GetMapping(value = "/internal-users/find-members")
 	List<TimeCapsuleMemberDto> getMembersInfo(@RequestParam("member-id") List<UUID> friendsIdList);
+
+	@GetMapping(value = "/internal-users/search")
+	FeignFriendIdListDto searchFriendsIdByNickname(@RequestHeader("memberId") UUID memberId,
+		@RequestParam("keyword") String keyword);
+
 }

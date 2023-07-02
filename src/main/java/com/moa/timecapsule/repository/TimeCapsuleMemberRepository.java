@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.moa.timecapsule.entity.TimeCapsuleMember;
-import com.moa.timecapsule.entity.Timecapsule;
 
 @Repository
 public interface TimeCapsuleMemberRepository extends JpaRepository<TimeCapsuleMember, Long> {
@@ -16,4 +15,7 @@ public interface TimeCapsuleMemberRepository extends JpaRepository<TimeCapsuleMe
 
 	List<TimeCapsuleMember> findByTimeCapsuleId(UUID timeCapsuleId);
 
+	List<TimeCapsuleMember> findByMemberId(UUID memberId);
+
+	List<TimeCapsuleMember> findByTimeCapsuleIdAndMemberIdIn(UUID timeCapsuleId, List<UUID> friendIds);
 }

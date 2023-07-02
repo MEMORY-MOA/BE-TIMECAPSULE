@@ -3,11 +3,16 @@ server:
 
 # datasource
 spring:
+  config:
+    import: env.yml
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DATASOURCE_URL}
     password: ${DATASOURCE_PASSWORD}
     username: ${DATASOURCE_USERNAME}
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
   # jpa
   jpa:
     database: mysql
@@ -17,3 +22,4 @@ spring:
         format_sql: true
         show_sql: true
         ddl-auto: update
+
