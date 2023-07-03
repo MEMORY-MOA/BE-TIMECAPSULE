@@ -10,12 +10,10 @@ spring:
     url: ${DATASOURCE_URL}
     password: ${DATASOURCE_PASSWORD}
     username: ${DATASOURCE_USERNAME}
-  elasticsearch:
-    rest:
-      uris: http://localhost:9200
   # jpa
   jpa:
     database: mysql
+    generate-ddl: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL57Dialect
