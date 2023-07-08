@@ -12,7 +12,7 @@ public class TimeCapsuleItemRequest {
 	@NonNull
 	private int size;
 	@NonNull
-	private int x;
+	private int locationX;
 	@NonNull
-	private int y;
+	private int locationY;
 }

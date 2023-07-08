@@ -34,8 +34,8 @@ public class TimeCapsuleItem extends BaseEntity {
 	private int size;
 
 	@Column(nullable = false)
-	private int x;
+	private int locationX;
 
 	@Column(nullable = false)
-	private int y;
+	private int locationY;
 }

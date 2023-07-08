@@ -12,6 +12,6 @@ public class TimeCapsuleItemDto {
 	private UUID timeCapsuleId;
 	private int decoratedItemId;
 	private int size;
-	private int x;
-	private int y;
+	private int locationX;
+	private int locationY;
 }
