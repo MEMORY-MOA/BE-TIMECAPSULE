@@ -29,7 +29,7 @@ public class TimeCapsuleItemController {
 	private final TimeCapsuleItemService timeCapsuleItemService;
 
 	@PostMapping("/item")
-	public ResponseEntity<ResponseDto> generateTimeCapsule(@RequestHeader("memberId") UUID memberId,
+	public ResponseEntity<ResponseDto> registerTimeCapsuleItem(@RequestHeader("memberId") UUID memberId,
 		@PathVariable("timeCapsuleId") UUID timeCapsuleId, @RequestBody TimeCapsuleItemRequest request) {
 		TimeCapsuleItemDto timeCapsuleItemDto = timeCapsuleItemMapper.toDto(memberId, timeCapsuleId, request);
 		timeCapsuleItemService.insertTimeCapsuleItem(timeCapsuleItemDto);
