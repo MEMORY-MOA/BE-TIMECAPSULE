@@ -23,6 +23,8 @@ public interface TimeCapsuleDtoMapper {
 
 	TimeCapsuleResponse toTimeCapsuleResponse(TimeCapsuleDto timeCapsuleDto);
 
+	List<TimeCapsuleResponse> toTimeCapsuleResponse(List<TimeCapsuleDto> timeCapsuleDtoList);
+
 	default List<TimeCapsuleMemberDto> uuidToTimeCapsuleDto(List<UUID> friends) {
 		List<TimeCapsuleMemberDto> list = new ArrayList<>();
 

@@ -24,7 +24,7 @@ spring:
   # jpa
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     database: mysql
     properties:
       hibernate:
