@@ -44,6 +44,10 @@ dependencies {
     // feign client
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
 
+    // elastic search
+    implementation 'co.elastic.clients:elasticsearch-java:8.5.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
+
     // Querydsl 추가
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
     annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
@@ -52,7 +56,6 @@ dependencies {
 
     // redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-
 }
 
 dependencyManagement {

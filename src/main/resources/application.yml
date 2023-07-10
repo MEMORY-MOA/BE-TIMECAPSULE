@@ -15,19 +15,20 @@ spring:
         min-idle: ${REDIS_POOL_MIN_IDLE}
         max-active: ${REDIS_POOL_MAX_ACTIVE}
         max-wait: ${REDIS_POOL_MAX_WAIT}
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DATASOURCE_URL}
     password: ${DATASOURCE_PASSWORD}
     username: ${DATASOURCE_USERNAME}
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
   # jpa
   jpa:
-    hibernate:
-      ddl-auto: create
     database: mysql
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL57Dialect
         format_sql: true
         show_sql: true
+        ddl-auto: update
