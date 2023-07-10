@@ -1,7 +1,9 @@
 package com.moa.timecapsule.controller;
 
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.moa.timecapsule.controller.request.GenerateTimeCapsuleContentRequest;
 import com.moa.timecapsule.controller.request.GenerateTimeCapsuleRequest;
 import com.moa.timecapsule.controller.response.ResponseDto;
 import com.moa.timecapsule.controller.response.TimeCapsuleIdResponse;
 import com.moa.timecapsule.dto.TimeCapsuleDto;
-import com.moa.timecapsule.dto.TimeCapsuleTextDto;
 import com.moa.timecapsule.mapper.TimeCapsuleDtoMapper;
 import com.moa.timecapsule.service.TimeCapsuleService;
 
@@ -61,6 +61,22 @@ public class TimeCapsuleController {
 				.httpStatus(HttpStatus.OK)
 				.msg(timeCapsuleDto.getTitle() + " 타임캡슐 정보 조회가 완료되었습니다.")
 				.data(timeCapsuleDtoMapper.toTimeCapsuleResponse(timeCapsuleDto))
+				.build());
+	}
+
+	@GetMapping("/list/{page}")
+	public ResponseEntity<ResponseDto> getTimeCapsules(@RequestHeader("member") UUID member,
+		@PathVariable("page") Integer page) {
+		int size = 10;
+		PageRequest pageRequest = PageRequest.of(page, size);
+
+		List<TimeCapsuleDto> timeCapsuleDtoList = timeCapsuleService.selectTimeCapsules(member, pageRequest);
+
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ResponseDto.builder()
+				.httpStatus(HttpStatus.OK)
+				.msg("타임캡슐 정보 조회가 완료되었습니다.")
+				.data(timeCapsuleDtoMapper.toTimeCapsuleResponse(timeCapsuleDtoList))
 				.build());
 	}
 }

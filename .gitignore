@@ -36,5 +36,8 @@ out/
 ### VS Code ###
 .vscode/
 
+### QueryDSL ###
+**/generated/**/mapper/
+
 ### 설정파일 ###
 src/main/resources/env.yml
