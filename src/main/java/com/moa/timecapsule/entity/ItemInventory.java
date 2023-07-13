@@ -23,8 +23,8 @@ public class ItemInventory {
 	private int itemId;
 
 	@Column(nullable = false)
-	private int itemType;
+	private String itemType;
 
 	@Column(nullable = false)
-	private int item;
+	private String item;
 }
