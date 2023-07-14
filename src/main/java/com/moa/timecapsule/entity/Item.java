@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemInventory {
+public class Item {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -23,7 +23,7 @@ public class ItemInventory {
 	private int itemId;
 
 	@Column(nullable = false)
-	private String itemType;
+	private ItemType itemType;
 
 	@Column(nullable = false)
 	private String item;
