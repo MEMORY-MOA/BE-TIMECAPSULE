@@ -5,13 +5,13 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.moa.timecapsule.controller.request.MemberItemRequest;
 import com.moa.timecapsule.controller.request.MemberItemViewRequest;
 import com.moa.timecapsule.controller.response.MemberItemIdsResponse;
 import com.moa.timecapsule.controller.response.ResponseDto;
@@ -32,10 +32,10 @@ public class MemberItemController {
 	private final MemberItemMapper memberItemMapper;
 	private final MemberItemService memberItemService;
 
-	@PostMapping
+	@PostMapping("/{itemId}")
 	public ResponseEntity<ResponseDto> registerMemberItem(@RequestHeader("memberId") UUID memberId,
-		@RequestBody MemberItemRequest request) {
-		MemberItemDto memberItemDto = memberItemMapper.toDto(memberId, request);
+		@PathVariable("itemId") int itemId) {
+		MemberItemDto memberItemDto = memberItemMapper.toDto(memberId, itemId);
 		memberItemService.insertMemberItem(memberItemDto);
 
 		return ResponseEntity.status(HttpStatus.OK)
