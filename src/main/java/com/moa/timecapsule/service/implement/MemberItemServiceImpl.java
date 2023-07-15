@@ -6,8 +6,9 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.moa.timecapsule.dto.ItemDto;
 import com.moa.timecapsule.dto.MemberItemDto;
-import com.moa.timecapsule.dto.MemberItemIdsDto;
+import com.moa.timecapsule.dto.MemberItemListDto;
 import com.moa.timecapsule.dto.MemberItemViewDto;
 import com.moa.timecapsule.entity.Item;
 import com.moa.timecapsule.entity.MemberItem;
@@ -41,19 +42,20 @@ public class MemberItemServiceImpl implements MemberItemService {
 	}
 
 	@Override
-	public MemberItemIdsDto findMemberItem(MemberItemViewDto memberItemViewDto) {
+	public MemberItemListDto findMemberItem(MemberItemViewDto memberItemViewDto) {
 		List<MemberItem> memberItemList = memberItemRepository.findMemberItemByMemberId(
 			memberItemViewDto.getMemberId());
-		List<Integer> memberItemIdList = new ArrayList<>();
+		List<ItemDto> memberItemDtoList = new ArrayList<>();
 		for (MemberItem memberItem : memberItemList) {
 			Item item = itemRepository.findItemByItemIdAndItemType(memberItem.getItemId(),
 				memberItemViewDto.getItemType());
 			if (item != null) {
-				memberItemIdList.add(item.getItemId());
+				ItemDto itemDto = memberItemMapper.toDto(item);
+				memberItemDtoList.add(itemDto);
 			}
 		}
-		return MemberItemIdsDto.builder()
-			.itemIdList(memberItemIdList)
+		return MemberItemListDto.builder()
+			.itemDtoList(memberItemDtoList)
 			.build();
 	}
 

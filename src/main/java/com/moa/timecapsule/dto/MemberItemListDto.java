@@ -7,6 +7,6 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class MemberItemIdsDto {
-	private List<Integer> itemIdList;
+public class MemberItemListDto {
+	private List<ItemDto> itemDtoList;
 }

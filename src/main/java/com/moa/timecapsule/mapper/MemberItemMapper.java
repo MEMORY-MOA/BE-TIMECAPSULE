@@ -5,10 +5,12 @@ import java.util.UUID;
 import org.mapstruct.Mapper;
 
 import com.moa.timecapsule.controller.request.MemberItemViewRequest;
-import com.moa.timecapsule.controller.response.MemberItemIdsResponse;
+import com.moa.timecapsule.controller.response.MemberItemListResponse;
+import com.moa.timecapsule.dto.ItemDto;
 import com.moa.timecapsule.dto.MemberItemDto;
-import com.moa.timecapsule.dto.MemberItemIdsDto;
+import com.moa.timecapsule.dto.MemberItemListDto;
 import com.moa.timecapsule.dto.MemberItemViewDto;
+import com.moa.timecapsule.entity.Item;
 import com.moa.timecapsule.entity.MemberItem;
 
 @Mapper(componentModel = "spring")
@@ -17,9 +19,11 @@ public interface MemberItemMapper {
 
 	MemberItem dtoToEntity(MemberItemDto memberItemDto);
 
-	MemberItemIdsResponse dtoToResponse(MemberItemIdsDto memberItemIdsDto);
+	MemberItemListResponse dtoToResponse(MemberItemListDto memberItemIdsDto);
 
 	MemberItemViewDto toDto(UUID memberId, MemberItemViewRequest memberItemViewRequest);
+
+	ItemDto toDto(Item item);
 
 }
 
