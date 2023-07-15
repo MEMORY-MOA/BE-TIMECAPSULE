@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class TimeCapsuleItemDto {
+public class TimeCapsuleItemRegisterDto {
 	private UUID memberId;
 	private UUID timeCapsuleId;
 	private List<TimeCapsuleItemIdTypeDto> timeCapsuleItemIdTypeDtoList;
