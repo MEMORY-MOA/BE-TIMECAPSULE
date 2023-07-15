@@ -68,8 +68,10 @@ public class TimeCapsuleItemServiceImpl implements TimeCapsuleItemService {
 		for (TimeCapsuleItem timeCapsuleItem : timeCapsuleItemList) {
 			int itemId = timeCapsuleItem.getItemId();
 			Item item = itemRepository.findItemByItemId(itemId);
-			ItemDto itemDto = timeCapsuleItemMapper.toDto(item);
-			timeCapsuleItemDtoList.add(itemDto);
+			if (item != null) {
+				ItemDto itemDto = timeCapsuleItemMapper.toDto(item);
+				timeCapsuleItemDtoList.add(itemDto);
+			}
 		}
 
 		return TimeCapsuleItemListDto.builder()
