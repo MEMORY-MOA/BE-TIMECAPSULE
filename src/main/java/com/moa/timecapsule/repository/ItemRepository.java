@@ -10,6 +10,8 @@ import com.moa.timecapsule.entity.ItemType;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 	Item findItemByItemIdAndItemType(int ItemId, ItemType itemType);
 
+	Boolean existsItemByItemId(int itemId);
+  
 	Item findItemByItemId(int itemId);
 
 	Boolean existsItemByItemIdAndItemType(int itemId, ItemType itemType);
