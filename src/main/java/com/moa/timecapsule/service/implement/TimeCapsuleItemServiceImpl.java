@@ -85,7 +85,7 @@ public class TimeCapsuleItemServiceImpl implements TimeCapsuleItemService {
 	}
 
 	private void existsMemberTimeCapsuleItem(UUID memberId, int itemId) {
-		if (!memberItemRepository.existsMemberItemByItemIdAndMemberId(itemId, memberId)) {
+		if (!memberItemRepository.existsMemberItemByMemberIdAndItemId(memberId, itemId)) {
 			throw new NotFoundException("해당 아이템은 사용자가 보유하고 있지 않습니다.");
 		}
 	}
