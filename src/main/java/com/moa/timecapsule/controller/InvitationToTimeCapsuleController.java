@@ -5,6 +5,7 @@ import com.moa.timecapsule.controller.response.ResponseDto;
 import com.moa.timecapsule.dto.InvitationDto;
 import com.moa.timecapsule.mapper.InvitationToTimeCapsuleDtoMapper;
 import com.moa.timecapsule.service.InvitationToTimeCapsuleService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class InvitationToTimeCapsuleController {
 	private final InvitationToTimeCapsuleDtoMapper invitationToTimeCapsuleDtoMapper;
 
 	@GetMapping
+	@Operation(summary = "타임캡슐 초대 API_yejin")
 	public ResponseEntity<ResponseDto> createLink(@RequestHeader("member") UUID member,
 												  @PathVariable("time-capsule") UUID timeCapsuleId) {
 		InvitationDto invitationDto = invitationToTimeCapsuleService.create(member, timeCapsuleId);
@@ -37,6 +39,7 @@ public class InvitationToTimeCapsuleController {
 	}
 
 	@GetMapping("/acceptance")
+	@Operation(summary = "타임캡슐 초대 수락 API_yejin")
 	public ResponseEntity<ResponseDto> accept(@RequestHeader("member") UUID member,
 											  @PathVariable("time-capsule") UUID timeCapsuleId) {
 		invitationToTimeCapsuleService.accept(member, timeCapsuleId);

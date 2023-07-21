@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class TimeCapsuleContentController {
 	private final TimeCapsuleContentDtoMapper timeCapsuleContentDtoMapper;
 
 	@GetMapping("/open")
+	@Operation(summary = "타임캡슐 열기 API_yejin")
 	public ResponseEntity<ResponseDto> openTimeCapsule(@RequestHeader("member") UUID member,
 		@PathVariable("time-capsule") UUID timeCapsuleId) {
 		List<TimeCapsuleTextDto> timeCapsuleTextDtoList = timeCapsuleContentService.selectTimeCapsuleTextList(
@@ -71,6 +73,7 @@ public class TimeCapsuleContentController {
 	}
 
 	@PostMapping("/text")
+	@Operation(summary = "타임캡슐 텍스트 생성 API_yejin")
 	public ResponseEntity<ResponseDto> generateTimeCapsuleText(@RequestHeader("member") UUID member,
 		@PathVariable("time-capsule") UUID timeCapsuleId,
 		@RequestBody GenerateTimeCapsuleContentRequest request) {
@@ -85,6 +88,7 @@ public class TimeCapsuleContentController {
 	}
 
 	@GetMapping("/text/{text-id}")
+	@Operation(summary = "타임캡슐 텍스트 열기 API_yejin")
 	public ResponseEntity<ResponseDto> openTimeCapsuleText(@RequestHeader("member") UUID member,
 		@PathVariable("time-capsule") UUID timeCapsuleId,
 		@PathVariable("text-id") UUID timeCapsuleTextId) {
