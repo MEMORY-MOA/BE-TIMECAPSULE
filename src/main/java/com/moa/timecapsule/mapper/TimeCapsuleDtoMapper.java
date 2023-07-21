@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.moa.timecapsule.controller.response.TimeCapsuleListResponse;
+import com.moa.timecapsule.dto.TimeCapsuleListDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -23,7 +25,7 @@ public interface TimeCapsuleDtoMapper {
 
 	TimeCapsuleResponse toTimeCapsuleResponse(TimeCapsuleDto timeCapsuleDto);
 
-	List<TimeCapsuleResponse> toTimeCapsuleResponse(List<TimeCapsuleDto> timeCapsuleDtoList);
+	TimeCapsuleListResponse toTimeCapsuleListResponse(TimeCapsuleListDto timeCapsuleListDto);
 
 	default List<TimeCapsuleMemberDto> uuidToTimeCapsuleDto(List<UUID> friends) {
 		List<TimeCapsuleMemberDto> list = new ArrayList<>();

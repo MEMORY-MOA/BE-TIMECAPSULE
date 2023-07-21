@@ -3,7 +3,13 @@ package com.moa.timecapsule.controller;
 import java.util.List;
 import java.util.UUID;
 
+import com.moa.timecapsule.dto.TimeCapsuleListDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +40,9 @@ public class TimeCapsuleController {
 	private final TimeCapsuleDtoMapper timeCapsuleDtoMapper;
 
 	@PostMapping
+	@Operation(summary = "타임캡슐 생성_yejin")
 	public ResponseEntity<ResponseDto> generateTimeCapsule(@RequestHeader("member") UUID member,
-		@RequestBody GenerateTimeCapsuleRequest request) {
+														   @RequestBody GenerateTimeCapsuleRequest request) {
 		TimeCapsuleDto timeCapsuleDto = timeCapsuleService.insertTimeCapsule(
 			timeCapsuleDtoMapper.fromGenerateTimeCapsuleRequest(member, request));
 
@@ -50,8 +57,9 @@ public class TimeCapsuleController {
 	}
 
 	@GetMapping("/{time-capsule}")
+	@Operation(summary = "타임캡슐 조회 API_yejin")
 	public ResponseEntity<?> getOneTimeCapsule(@RequestHeader("member") UUID member,
-		@PathVariable("time-capsule") UUID timeCapsuleId) {
+											   @PathVariable("time-capsule") UUID timeCapsuleId) {
 		TimeCapsuleDto timeCapsuleDto = timeCapsuleService.selectTimeCapsule(
 			timeCapsuleDtoMapper.toTimeCapsuleIdsDto(member, timeCapsuleId)
 		);
@@ -64,19 +72,18 @@ public class TimeCapsuleController {
 				.build());
 	}
 
-	@GetMapping("/list/{page}")
+	@GetMapping("/list")
+	@Operation(summary = "타임캡슐 리스트 API_yejin")
 	public ResponseEntity<ResponseDto> getTimeCapsules(@RequestHeader("member") UUID member,
-		@PathVariable("page") Integer page) {
-		int size = 10;
-		PageRequest pageRequest = PageRequest.of(page, size);
+													   @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.ASC) Pageable page) {
 
-		List<TimeCapsuleDto> timeCapsuleDtoList = timeCapsuleService.selectTimeCapsules(member, pageRequest);
+		TimeCapsuleListDto timeCapsuleDtoList = timeCapsuleService.selectTimeCapsules(member, page);
 
 		return ResponseEntity.status(HttpStatus.OK)
 			.body(ResponseDto.builder()
 				.httpStatus(HttpStatus.OK)
 				.msg("타임캡슐 정보 조회가 완료되었습니다.")
-				.data(timeCapsuleDtoMapper.toTimeCapsuleResponse(timeCapsuleDtoList))
+				.data(timeCapsuleDtoMapper.toTimeCapsuleListResponse(timeCapsuleDtoList))
 				.build());
 	}
 }

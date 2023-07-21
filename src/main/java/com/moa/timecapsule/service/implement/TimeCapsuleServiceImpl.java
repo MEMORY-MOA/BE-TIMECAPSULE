@@ -3,15 +3,13 @@ package com.moa.timecapsule.service.implement;
 import java.util.List;
 import java.util.UUID;
 
+import com.moa.timecapsule.dto.*;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.moa.timecapsule.client.MemberFeignClient;
-import com.moa.timecapsule.dto.TimeCapsuleDto;
-import com.moa.timecapsule.dto.TimeCapsuleIdsDto;
-import com.moa.timecapsule.dto.TimeCapsuleMemberDto;
-import com.moa.timecapsule.dto.TimeCapsuleTextDto;
 import com.moa.timecapsule.entity.TimeCapsuleMember;
 import com.moa.timecapsule.entity.TimeCapsuleText;
 import com.moa.timecapsule.entity.Timecapsule;
@@ -76,10 +74,14 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 	}
 
 	@Override
-	public List<TimeCapsuleDto> selectTimeCapsules(UUID member, Pageable page) {
-		log.info(String.valueOf(member));
-		log.info(String.valueOf(page.getPageSize()));
-		return timeCapsuleMapper.toDto(timeCapsuleQueryRepository.findByMemberId(member, page));
+	public TimeCapsuleListDto selectTimeCapsules(UUID member, Pageable page) {
+		Page<Timecapsule> timecapsules = timeCapsuleQueryRepository.findByMemberId(member, page);
+
+		return TimeCapsuleListDto.builder()
+			.timeCapsulesCnt(timecapsules.getNumberOfElements())
+			.timeCapsulesPage(page.getPageNumber())
+			.timeCapsuleList(timeCapsuleMapper.toDto(timecapsules.getContent()))
+			.build();
 	}
 
 	private void insertTimeCapsuleMember(UUID timeCapsuleId, UUID friend) {

@@ -3,6 +3,7 @@ package com.moa.timecapsule.service;
 import java.util.List;
 import java.util.UUID;
 
+import com.moa.timecapsule.dto.TimeCapsuleListDto;
 import org.springframework.data.domain.Pageable;
 
 import com.moa.timecapsule.dto.TimeCapsuleDto;
@@ -13,5 +14,5 @@ public interface TimeCapsuleService {
 
 	TimeCapsuleDto selectTimeCapsule(TimeCapsuleIdsDto timeCapsuleIdsDto);
 
-	List<TimeCapsuleDto> selectTimeCapsules(UUID member, Pageable page);
+	TimeCapsuleListDto selectTimeCapsules(UUID member, Pageable page);
 }

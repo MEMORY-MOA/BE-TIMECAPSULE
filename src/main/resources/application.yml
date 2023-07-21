@@ -29,5 +29,3 @@ spring:
     show_sql: true
     hibernate:
       ddl-auto: update
-      dialect: org.hibernate.dialect.MySQL57Dialect
-      format_sql: true
