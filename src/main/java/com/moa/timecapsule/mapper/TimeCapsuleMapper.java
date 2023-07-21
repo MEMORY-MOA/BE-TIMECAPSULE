@@ -2,6 +2,7 @@ package com.moa.timecapsule.mapper;
 
 import java.util.List;
 
+import com.moa.timecapsule.dto.TimeCapsuleListDto;
 import org.mapstruct.Mapper;
 
 import com.moa.timecapsule.dto.TimeCapsuleDto;

@@ -3,6 +3,7 @@ package com.moa.timecapsule.controller;
 import java.util.List;
 import java.util.UUID;
 
+import com.moa.timecapsule.dto.TimeCapsuleListDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.data.domain.PageRequest;
@@ -76,13 +77,13 @@ public class TimeCapsuleController {
 	public ResponseEntity<ResponseDto> getTimeCapsules(@RequestHeader("member") UUID member,
 													   @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.ASC) Pageable page) {
 
-		List<TimeCapsuleDto> timeCapsuleDtoList = timeCapsuleService.selectTimeCapsules(member, page);
+		TimeCapsuleListDto timeCapsuleDtoList = timeCapsuleService.selectTimeCapsules(member, page);
 
 		return ResponseEntity.status(HttpStatus.OK)
 			.body(ResponseDto.builder()
 				.httpStatus(HttpStatus.OK)
 				.msg("타임캡슐 정보 조회가 완료되었습니다.")
-				.data(timeCapsuleDtoMapper.toTimeCapsuleResponse(timeCapsuleDtoList))
+				.data(timeCapsuleDtoMapper.toTimeCapsuleListResponse(timeCapsuleDtoList))
 				.build());
 	}
 }
