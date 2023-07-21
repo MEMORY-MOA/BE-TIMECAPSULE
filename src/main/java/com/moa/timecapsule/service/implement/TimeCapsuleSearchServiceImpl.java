@@ -58,7 +58,7 @@ public class TimeCapsuleSearchServiceImpl implements TimeCapsuleSearchService {
 			}
 		}
 
-		Page<Timecapsule> pages = timeCapsuleRepository.findTimecapsuleByTimeCapsuleIdInOrTitle(
+		Page<Timecapsule> pages = timeCapsuleRepository.findTimecapsuleByTimeCapsuleIdInOrTitleContaining(
 			timeCapsuleIdList, keyword, pageable);
 		List<TimeCapsuleSearchDto> timeCapsuleSearchDtoList = new ArrayList<>();
 		for (Timecapsule timeCapsule : pages.getContent()) {

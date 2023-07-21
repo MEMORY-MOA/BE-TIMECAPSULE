@@ -13,7 +13,7 @@ import com.moa.timecapsule.entity.Timecapsule;
 
 @Repository
 public interface TimeCapsuleRepository extends JpaRepository<Timecapsule, String> {
-	Page<Timecapsule> findTimecapsuleByTimeCapsuleIdInOrTitle(List<UUID> timeCapsuleIdList, String keyword,
+	Page<Timecapsule> findTimecapsuleByTimeCapsuleIdInOrTitleContaining(List<UUID> timeCapsuleIdList, String keyword,
 		Pageable pageable);
 
 	Optional<Timecapsule> findTimecapsuleByTimeCapsuleId(UUID timeCapsuleId);

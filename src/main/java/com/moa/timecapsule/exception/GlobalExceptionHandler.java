@@ -27,4 +27,13 @@ public class GlobalExceptionHandler {
 			.build();
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDto);
 	}
+
+	@ExceptionHandler(DuplicateException.class)
+	public ResponseEntity<ResponseDto<?>> handleDuplicateException(DuplicateException ex) {
+		ResponseDto<?> responseDto = ResponseDto.builder()
+			.httpStatus(HttpStatus.CONFLICT)
+			.msg("충돌 발생: " + ex.getMessage())
+			.build();
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(responseDto);
+	}
 }

@@ -11,6 +11,6 @@ import com.moa.timecapsule.dto.TimeCapsuleSearchListDto;
 public interface TimeCapsuleSearchService {
 	FriendIdListDto findFriendsIdByNickname(FriendSearchDto friendSearchDto);
 
-	public TimeCapsuleSearchListDto findTimeCapsuleByKeyword(UUID memberId, FriendIdListDto friendIdListDto,
+	TimeCapsuleSearchListDto findTimeCapsuleByKeyword(UUID memberId, FriendIdListDto friendIdListDto,
 		String keyword, Pageable pageable, int page);
 }
