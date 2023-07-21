@@ -77,8 +77,6 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 
 	@Override
 	public List<TimeCapsuleDto> selectTimeCapsules(UUID member, Pageable page) {
-		log.info(String.valueOf(member));
-		log.info(String.valueOf(page.getPageSize()));
 		return timeCapsuleMapper.toDto(timeCapsuleQueryRepository.findByMemberId(member, page));
 	}
 
