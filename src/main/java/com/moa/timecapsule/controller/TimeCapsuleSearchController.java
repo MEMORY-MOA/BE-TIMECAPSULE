@@ -34,8 +34,8 @@ public class TimeCapsuleSearchController {
 
 	@GetMapping("/search")
 	public ResponseEntity<ResponseDto> searchTimeCapsule(@RequestHeader("memberId") UUID memberId,
-		@RequestParam String keyword, @RequestParam int page,
-		@PageableDefault(size = 10, sort = "openedAt", direction = Sort.Direction.ASC) Pageable pageable) {
+														 @RequestParam String keyword, @RequestParam int page,
+														 @PageableDefault(size = 10, sort = "openedAt", direction = Sort.Direction.ASC) Pageable pageable) {
 		FriendSearchDto friendSearchDto = timeCapsuleSearchMapper.toDto(memberId, keyword);
 		FriendIdListDto friendIdListDto = timeCapsuleSearchService.findFriendsIdByNickname(friendSearchDto);
 
