@@ -73,7 +73,8 @@ public class TimeCapsuleController {
 	}
 
 	@GetMapping("/list")
-	@Operation(summary = "타임캡슐 리스트 API_yejin")
+	@Operation(summary = "타임캡슐 리스트 API_yejin",
+		description = "page 0부터 시작, page 별 10개씩 조회(마지막 페이지는 10개 이하), 타임캡슐 오픈 날짜 순으로 정렬, swagger사용시 pageable에는 josn 괄호 {} 만 보내야 에러 안남, 주소에 list?page=0&size=3&sort=id,desc&sort=username,desc 등으로 사용 가능하나, page만 있어도 됨")
 	public ResponseEntity<ResponseDto> getTimeCapsules(@RequestHeader("member") UUID member,
 													   @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.ASC) Pageable page) {
 
