@@ -25,6 +25,7 @@ import com.moa.timecapsule.entity.ItemType;
 import com.moa.timecapsule.mapper.TimeCapsuleItemMapper;
 import com.moa.timecapsule.service.TimeCapsuleItemService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +38,7 @@ public class TimeCapsuleItemController {
 	private final TimeCapsuleItemService timeCapsuleItemService;
 
 	@PostMapping
+	@Operation(summary = "타임캡슐 아이템 등록 API_Ahin.K")
 	public ResponseEntity<ResponseDto> registerTimeCapsuleItem(@RequestHeader("memberId") UUID memberId,
 		@PathVariable("timeCapsuleId") UUID timeCapsuleId, @RequestBody TimeCapsuleItemRequest request) {
 		TimeCapsuleItemRegisterDto timeCapsuleItemRegisterDto = timeCapsuleItemMapper.toDto(memberId, timeCapsuleId,
@@ -51,6 +53,7 @@ public class TimeCapsuleItemController {
 	}
 
 	@GetMapping
+	@Operation(summary = "타임캡슐 아이템 조회 API_Ahin.K")
 	public ResponseEntity<ResponseDto> viewTimeCapsuleItem(@RequestHeader("memberId") UUID memberId,
 		@PathVariable("timeCapsuleId") UUID timeCapsuleId) {
 		TimeCapsuleItemViewDto timeCapsuleItemViewDto = timeCapsuleItemMapper.toDto(memberId, timeCapsuleId);

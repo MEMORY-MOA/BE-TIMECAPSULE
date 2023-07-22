@@ -21,6 +21,7 @@ import com.moa.timecapsule.dto.TimeCapsuleSearchListDto;
 import com.moa.timecapsule.mapper.TimeCapsuleSearchMapper;
 import com.moa.timecapsule.service.TimeCapsuleSearchService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,9 +34,11 @@ public class TimeCapsuleSearchController {
 	private final TimeCapsuleSearchMapper timeCapsuleSearchMapper;
 
 	@GetMapping("/search")
+	@Operation(summary = "타임캡슐 이름 or 타임캡슐 맴버 닉네임 검색 API_Ahin.K",
+		description = "page 0부터 시작, page 별 10개씩 조회(마지막 페이지는 10개 이하), 타임캡슐 오픈 날짜 순으로 정렬, swagger사용시 pageable에는 josn 괄호 {} 만 보내야 에러 안남")
 	public ResponseEntity<ResponseDto> searchTimeCapsule(@RequestHeader("memberId") UUID memberId,
-														 @RequestParam String keyword, @RequestParam int page,
-														 @PageableDefault(size = 10, sort = "openedAt", direction = Sort.Direction.ASC) Pageable pageable) {
+		@RequestParam String keyword, @RequestParam int page,
+		@PageableDefault(size = 10, sort = "openedAt", direction = Sort.Direction.ASC) Pageable pageable) {
 		FriendSearchDto friendSearchDto = timeCapsuleSearchMapper.toDto(memberId, keyword);
 		FriendIdListDto friendIdListDto = timeCapsuleSearchService.findFriendsIdByNickname(friendSearchDto);
 

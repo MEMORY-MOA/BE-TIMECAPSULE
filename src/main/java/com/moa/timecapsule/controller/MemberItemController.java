@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +20,7 @@ import com.moa.timecapsule.dto.MemberItemViewDto;
 import com.moa.timecapsule.mapper.MemberItemMapper;
 import com.moa.timecapsule.service.MemberItemService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +33,7 @@ public class MemberItemController {
 	private final MemberItemService memberItemService;
 
 	@PostMapping("/{itemId}")
+	@Operation(summary = "사용자가 보유하고 있는 아이템 등록 API_Ahin.K")
 	public ResponseEntity<ResponseDto> registerMemberItem(@RequestHeader("memberId") UUID memberId,
 		@PathVariable("itemId") int itemId) {
 		MemberItemDto memberItemDto = memberItemMapper.toDto(memberId, itemId);
@@ -45,7 +46,8 @@ public class MemberItemController {
 				.build());
 	}
 
-	@GetMapping
+	@PostMapping
+	@Operation(summary = "사용자가 보유하고 있는 아이템 조회 API_Ahin.K")
 	public ResponseEntity<ResponseDto> viewTimeCapsuleItem(@RequestHeader("memberId") UUID memberId,
 		@RequestBody MemberItemViewRequest request) {
 		MemberItemViewDto memberItemViewDto = memberItemMapper.toDto(memberId, request);
