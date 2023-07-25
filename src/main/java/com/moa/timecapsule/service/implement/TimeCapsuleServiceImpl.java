@@ -78,7 +78,7 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 		Page<Timecapsule> timecapsules = timeCapsuleQueryRepository.findByMemberId(member, page);
 
 		return TimeCapsuleListDto.builder()
-			.timeCapsulesCnt(timecapsules.getNumberOfElements())
+			.timeCapsulesCnt(timecapsules.getTotalElements())
 			.timeCapsulesPage(page.getPageNumber())
 			.timeCapsuleList(timeCapsuleMapper.toDto(timecapsules.getContent()))
 			.build();
