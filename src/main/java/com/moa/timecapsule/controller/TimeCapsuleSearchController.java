@@ -38,7 +38,7 @@ public class TimeCapsuleSearchController {
 		description = "page 0부터 시작, page 별 10개씩 조회(마지막 페이지는 10개 이하), 타임캡슐 오픈 날짜 순으로 정렬, swagger사용시 pageable에는 josn 괄호 {} 만 보내야 에러 안남")
 	public ResponseEntity<ResponseDto> searchTimeCapsule(@RequestHeader("memberId") UUID memberId,
 		@RequestParam String keyword, @RequestParam int page,
-		@PageableDefault(size = 10, sort = "openedAt", direction = Sort.Direction.ASC) Pageable pageable) {
+		@PageableDefault(size = 1000, sort = "openedAt", direction = Sort.Direction.ASC) Pageable pageable) {
 		FriendSearchDto friendSearchDto = timeCapsuleSearchMapper.toDto(memberId, keyword);
 		FriendIdListDto friendIdListDto = timeCapsuleSearchService.findFriendsIdByNickname(friendSearchDto);
 
