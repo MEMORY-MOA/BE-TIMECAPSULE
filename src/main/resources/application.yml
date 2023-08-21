@@ -4,8 +4,6 @@ server:
 # datasource
 spring:
   config:
-    import: env.yml
-
   data:
     redis:
       host: ${REDIS_HOST}
@@ -17,9 +15,9 @@ spring:
         max-wait: ${REDIS_POOL_MAX_WAIT}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DATASOURCE_URL}
-    password: ${DATASOURCE_PASSWORD}
-    username: ${DATASOURCE_USERNAME}
+    url: ${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+    password: ${DATABASE_PASSWORD}
+    username: ${DATABASE_USER}
   # jpa
   jpa:
     database: mysql
