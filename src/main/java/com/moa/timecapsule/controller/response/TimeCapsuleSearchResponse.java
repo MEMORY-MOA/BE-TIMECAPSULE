@@ -1,5 +1,6 @@
 package com.moa.timecapsule.controller.response;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.moa.timecapsule.dto.TimeCapsuleSearchDto;
@@ -13,4 +14,5 @@ public class TimeCapsuleSearchResponse {
 	private int timeCapsulesCnt;
 	private int timeCapsulesPage;
 	private List<TimeCapsuleSearchDto> timeCapsuleSearchDtoList;
+	private LocalDateTime createdAt;
 }
