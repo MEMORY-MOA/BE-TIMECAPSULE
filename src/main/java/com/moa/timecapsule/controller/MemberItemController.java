@@ -34,7 +34,7 @@ public class MemberItemController {
 
 	@PostMapping("/{itemId}")
 	@Operation(summary = "사용자가 보유하고 있는 아이템 등록 API_Ahin.K")
-	public ResponseEntity<ResponseDto> registerMemberItem(@RequestHeader("memberId") UUID memberId,
+	public ResponseEntity<ResponseDto> registerMemberItem(@RequestHeader("member") UUID memberId,
 		@PathVariable("itemId") int itemId) {
 		MemberItemDto memberItemDto = memberItemMapper.toDto(memberId, itemId);
 		memberItemService.insertMemberItem(memberItemDto);
@@ -47,8 +47,8 @@ public class MemberItemController {
 	}
 
 	@PostMapping
-	@Operation(summary = "사용자가 보유하고 있는 아이템 조회 API_Ahin.K")
-	public ResponseEntity<ResponseDto> viewTimeCapsuleItem(@RequestHeader("memberId") UUID memberId,
+	@Operation(summary = "사용자가 보유하고 있는 아이템 조회 API_Ahin.K", description = "itemType 유형: heartBoxShape, treasureBoxShape, circleBoxShape, classicBoxShape, lockShape, effect")
+	public ResponseEntity<ResponseDto> viewTimeCapsuleItem(@RequestHeader("member") UUID memberId,
 		@RequestBody MemberItemViewRequest request) {
 		MemberItemViewDto memberItemViewDto = memberItemMapper.toDto(memberId, request);
 		MemberItemListDto memberItemListDto = memberItemService.findMemberItem(memberItemViewDto);

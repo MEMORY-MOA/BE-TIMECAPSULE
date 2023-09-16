@@ -7,14 +7,11 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.moa.timecapsule.dto.ItemDto;
-import com.moa.timecapsule.dto.TimeCapsuleItemIdTypeDto;
 import com.moa.timecapsule.dto.TimeCapsuleItemListDto;
 import com.moa.timecapsule.dto.TimeCapsuleItemRegisterDto;
 import com.moa.timecapsule.dto.TimeCapsuleItemViewDto;
 import com.moa.timecapsule.entity.Item;
-import com.moa.timecapsule.entity.ItemType;
-import com.moa.timecapsule.entity.TimeCapsuleItem;
-import com.moa.timecapsule.exception.DuplicateException;
+import com.moa.timecapsule.entity.TimeCapsuleItems;
 import com.moa.timecapsule.exception.NotFoundException;
 import com.moa.timecapsule.mapper.TimeCapsuleItemMapper;
 import com.moa.timecapsule.repository.ItemRepository;
@@ -40,21 +37,23 @@ public class TimeCapsuleItemServiceImpl implements TimeCapsuleItemService {
 	public void insertTimeCapsuleItem(TimeCapsuleItemRegisterDto timeCapsuleItemRegisterDto) {
 		UUID memberId = timeCapsuleItemRegisterDto.getMemberId();
 		UUID timeCapsuleId = timeCapsuleItemRegisterDto.getTimeCapsuleId();
-		checkTimeCapsuleMember(timeCapsuleId, memberId);
-		existsTimeCapsuleItem(timeCapsuleId);
-		for (TimeCapsuleItemIdTypeDto timeCapsuleItemIdTypeDto : timeCapsuleItemRegisterDto.getTimeCapsuleItemIdTypeDtoList()) {
-			ItemType itemType = timeCapsuleItemIdTypeDto.getItemType();
-			int itemId = timeCapsuleItemIdTypeDto.getItemId();
-			existsMemberTimeCapsuleItem(memberId, itemId);
-			existsItem(itemId, itemType);
-		}
-		for (TimeCapsuleItemIdTypeDto timeCapsuleItemIdTypeDto : timeCapsuleItemRegisterDto.getTimeCapsuleItemIdTypeDtoList()) {
-			ItemType itemType = timeCapsuleItemIdTypeDto.getItemType();
-			int itemId = timeCapsuleItemIdTypeDto.getItemId();
-			TimeCapsuleItem timeCapsuleItem = timeCapsuleItemMapper.toEntity(timeCapsuleId, itemId);
 
-			timeCapsuleItemRepository.save(timeCapsuleItem);
+		checkTimeCapsuleMember(timeCapsuleId, memberId);
+		TimeCapsuleItems timeCapsuleItems = timeCapsuleItemRepository.findTimeCapsuleItemsByTimeCapsuleId(
+			timeCapsuleId);
+
+		existsMemberTimeCapsuleItem(memberId, timeCapsuleItemRegisterDto.getBoxShapeItemId());
+		existsMemberTimeCapsuleItem(memberId, timeCapsuleItemRegisterDto.getEffectItemId());
+		existsMemberTimeCapsuleItem(memberId, timeCapsuleItemRegisterDto.getLockShapeItemId());
+
+		if (timeCapsuleItems != null) {
+			timeCapsuleItems = timeCapsuleItemMapper.updateMemberEntityFromTimeCapsuleItemRegisterDto(timeCapsuleItems,
+				timeCapsuleItemRegisterDto);
 		}
+		if (timeCapsuleItems == null) {
+			timeCapsuleItems = timeCapsuleItemMapper.toEntity(timeCapsuleId, timeCapsuleItemRegisterDto);
+		}
+		timeCapsuleItemRepository.save(timeCapsuleItems);
 	}
 
 	public TimeCapsuleItemListDto findTimeCapsuleItem(TimeCapsuleItemViewDto timeCapsuleItemViewDto) {
@@ -62,11 +61,19 @@ public class TimeCapsuleItemServiceImpl implements TimeCapsuleItemService {
 		UUID timeCapsuleId = timeCapsuleItemViewDto.getTimeCapsuleId();
 		checkTimeCapsuleMember(timeCapsuleId, memberId);
 
-		List<TimeCapsuleItem> timeCapsuleItemList = timeCapsuleItemRepository.findTimeCapsuleItemByTimeCapsuleId(
+		TimeCapsuleItems timeCapsuleItems = timeCapsuleItemRepository.findTimeCapsuleItemsByTimeCapsuleId(
 			timeCapsuleId);
+
+		if (timeCapsuleItems == null) {
+			throw new NotFoundException("타임캡슐 아이템이 존재하지 않습니다.");
+		}
+		List<Integer> timeCapsuleItemIdList = new ArrayList<>();
+		timeCapsuleItemIdList.add(timeCapsuleItems.getBoxShapeItemId());
+		timeCapsuleItemIdList.add(timeCapsuleItems.getEffectItemId());
+		timeCapsuleItemIdList.add(timeCapsuleItems.getLockShapeItemId());
+
 		List<ItemDto> timeCapsuleItemDtoList = new ArrayList<>();
-		for (TimeCapsuleItem timeCapsuleItem : timeCapsuleItemList) {
-			int itemId = timeCapsuleItem.getItemId();
+		for (Integer itemId : timeCapsuleItemIdList) {
 			Item item = itemRepository.findItemByItemId(itemId);
 			if (item != null) {
 				ItemDto itemDto = timeCapsuleItemMapper.toDto(item);
@@ -84,21 +91,9 @@ public class TimeCapsuleItemServiceImpl implements TimeCapsuleItemService {
 			.orElseThrow(() -> new NotFoundException("타임캡슐 멤버가 아닙니다."));
 	}
 
-	private void existsMemberTimeCapsuleItem(UUID memberId, int itemId) {
-		if (!memberItemRepository.existsMemberItemByMemberIdAndItemId(memberId, itemId)) {
+	private void existsMemberTimeCapsuleItem(UUID memberId, Integer itemId) {
+		if (itemId != null && !memberItemRepository.existsMemberItemByMemberIdAndItemId(memberId, itemId)) {
 			throw new NotFoundException("해당 아이템은 사용자가 보유하고 있지 않습니다.");
-		}
-	}
-
-	private void existsItem(int itemId, ItemType itemType) {
-		if (!itemRepository.existsItemByItemIdAndItemType(itemId, itemType)) {
-			throw new NotFoundException("해당 아이템은 존재하지 않습니다.");
-		}
-	}
-
-	private void existsTimeCapsuleItem(UUID timeCapsuleId) {
-		if (timeCapsuleItemRepository.existsTimeCapsuleItemByTimeCapsuleId(timeCapsuleId)) {
-			throw new DuplicateException("이미 해당 타임캡슐의 아이템은 생성되어 있습니다.");
 		}
 	}
 }
