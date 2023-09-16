@@ -12,6 +12,6 @@ import com.moa.timecapsule.entity.MemberItem;
 public interface MemberItemRepository extends JpaRepository<MemberItem, Long> {
 	List<MemberItem> findMemberItemByMemberId(UUID memberId);
 
-	Boolean existsMemberItemByMemberIdAndItemId(UUID memberId, int itemId);
+	Boolean existsMemberItemByMemberIdAndItemId(UUID memberId, Integer itemId);
 }
 

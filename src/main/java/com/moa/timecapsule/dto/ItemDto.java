@@ -8,7 +8,8 @@ import lombok.Getter;
 @Getter
 @Builder
 public class ItemDto {
-	private int itemId;
+	private Integer itemId;
 	private ItemType itemType;
 	private String item;
+	private String imgUrl;
 }
