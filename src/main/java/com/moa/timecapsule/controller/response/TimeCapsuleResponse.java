@@ -1,6 +1,7 @@
 package com.moa.timecapsule.controller.response;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,4 +28,5 @@ public class TimeCapsuleResponse {
 
 	private List<TimeCapsuleMemberDto> friends;
 
+	private LocalDateTime createdAt;
 }

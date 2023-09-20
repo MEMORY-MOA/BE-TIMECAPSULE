@@ -1,5 +1,6 @@
 package com.moa.timecapsule.controller.response;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import lombok.Builder;
@@ -13,4 +14,6 @@ public class TimeCapsuleTextResponse {
 	private String text;
 
 	private String nickname;
+
+	private LocalDateTime createdAt;
 }
