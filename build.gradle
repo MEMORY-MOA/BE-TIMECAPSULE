@@ -36,6 +36,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.batch:spring-batch-test'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.4'
 
     // MapStruct
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
@@ -59,6 +60,9 @@ dependencies {
 
     //Documentation
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+
+    //ImageUpload
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 dependencyManagement {
