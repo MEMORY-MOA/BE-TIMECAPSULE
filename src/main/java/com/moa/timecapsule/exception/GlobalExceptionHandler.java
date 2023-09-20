@@ -36,4 +36,13 @@ public class GlobalExceptionHandler {
 			.build();
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(responseDto);
 	}
+
+	@ExceptionHandler(FileUploadException.class)
+	public ResponseEntity<ResponseDto<?>> handleFileUploadException(FileUploadException ex){
+		ResponseDto<?> responseDto = ResponseDto.builder()
+			.httpStatus(HttpStatus.CONFLICT)
+			.msg("AmazonS3 파일 업로드 오류: " + ex.getMessage())
+			.build();
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(responseDto);
+	}
 }
