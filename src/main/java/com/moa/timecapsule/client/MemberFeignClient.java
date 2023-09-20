@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.moa.timecapsule.dto.FeignFriendIdListDto;
 import com.moa.timecapsule.dto.TimeCapsuleMemberDto;
 
-@FeignClient(name = "memberFeignClient", url = "http://localhost:8080")
+@FeignClient(name = "memberFeignClient", url = "${FEIGN_URL}")
 public interface MemberFeignClient {
 
 	@GetMapping(value = "/internal-members/{member-id}")

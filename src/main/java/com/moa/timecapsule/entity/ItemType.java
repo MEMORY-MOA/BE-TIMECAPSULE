@@ -1,5 +1,5 @@
 package com.moa.timecapsule.entity;
 
 public enum ItemType {
-	boxShape, boxColor, boxPattern, lockShape
+	heartBoxShape, treasureBoxShape, circleBoxShape, classicBoxShape, lockShape, effect
 }

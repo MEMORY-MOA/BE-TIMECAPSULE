@@ -20,11 +20,14 @@ public class Item {
 	private Long id;
 
 	@Column(nullable = false)
-	private int itemId;
+	private Integer itemId;
 
 	@Column(nullable = false)
 	private ItemType itemType;
 
 	@Column(nullable = false)
 	private String item;
+
+	@Column(nullable = false)
+	private String imgUrl;
 }

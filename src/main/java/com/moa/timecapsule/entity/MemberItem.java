@@ -25,6 +25,6 @@ public class MemberItem extends BaseEntity {
 	private UUID memberId;
 
 	@Column(nullable = false)
-	private int itemId;
+	private Integer itemId;
 }
 
