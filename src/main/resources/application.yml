@@ -3,16 +3,15 @@ server:
 
 # datasource
 spring:
-  config:
-    data:
-      redis:
-        host: ${REDIS_HOST}
-        port: ${REDIS_PORT}
-        pool:
-          max-idle: ${REDIS_POOL_MAX_IDLE}
-          min-idle: ${REDIS_POOL_MIN_IDLE}
-          max-active: ${REDIS_POOL_MAX_ACTIVE}
-          max-wait: ${REDIS_POOL_MAX_WAIT}
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      pool:
+        max-idle: ${REDIS_POOL_MAX_IDLE}
+        min-idle: ${REDIS_POOL_MIN_IDLE}
+        max-active: ${REDIS_POOL_MAX_ACTIVE}
+        max-wait: ${REDIS_POOL_MAX_WAIT}
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -21,7 +20,9 @@ spring:
     password: ${DATABASE_PASSWORD}
   # jpa
   jpa:
-
     show-sql: true
     hibernate:
       ddl-auto: update
+
+#Feign Client
+FEIGN_URL: ${MEMBER_HOST}:${MEMBER_PORT}
