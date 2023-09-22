@@ -35,4 +35,6 @@ public class TimeCapsuleText extends BaseEntity {
 
 	@Column(nullable = false)
 	private String text;
+
+	private String color;
 }

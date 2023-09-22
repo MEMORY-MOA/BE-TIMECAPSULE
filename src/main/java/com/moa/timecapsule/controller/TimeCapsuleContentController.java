@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.moa.timecapsule.controller.request.GenerateTimeCapsuleTextRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ import com.moa.timecapsule.service.TimeCapsuleContentService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/time-capsules/{time-capsule}")
@@ -39,19 +41,12 @@ public class TimeCapsuleContentController {
 	@GetMapping("/open")
 	@Operation(summary = "타임캡슐 열기 API_yejin")
 	public ResponseEntity<ResponseDto> openTimeCapsule(@RequestHeader("member") UUID member,
-		@PathVariable("time-capsule") UUID timeCapsuleId) {
+													   @PathVariable("time-capsule") UUID timeCapsuleId) {
 		List<TimeCapsuleTextDto> timeCapsuleTextDtoList = timeCapsuleContentService.selectTimeCapsuleTextList(
 			timeCapsuleId);
 
-		/* !!!!! file 추가되면 수정해야하는 부분 */
-		// List<TimeCapsuleTextDto> timeCapsuleTextDtoList = timeCapsuleContentService.selectTimeCapsuleFileList(
-		// 			timeCapsuleId);
-
-		TimeCapsuleFileDto fileDto = TimeCapsuleFileDto.builder().timeCapsuleFileId(UUID.randomUUID()).contentType(
-			ContentType.IMAGE).build();
-		List<TimeCapsuleFileDto> timeCapsuleFileDtoList = new ArrayList<>();
-		timeCapsuleFileDtoList.add(fileDto);
-		timeCapsuleFileDtoList.add(fileDto);
+		 List<TimeCapsuleFileDto> timeCapsuleFileDtoList = timeCapsuleContentService.selectTimeCapsuleFileList(
+		 			timeCapsuleId);
 
 		List<TimeCapsuleContentIdResponse> responseList = new ArrayList<>();
 
@@ -72,11 +67,38 @@ public class TimeCapsuleContentController {
 				.build());
 	}
 
+	@PostMapping
+	@Operation(summary = "타임캡슐 컨텐츠 생성(텍스트+파일) API_yejin")
+	public ResponseEntity<ResponseDto> generateTimeCapsuleContents(@RequestHeader("member") UUID member,
+																   @PathVariable("time-capsule") UUID timeCapsuleId,
+																   @RequestBody GenerateTimeCapsuleContentRequest request) {
+
+		if (request.getText() != null) {
+			for (GenerateTimeCapsuleTextRequest textRequest: request.getText()) {
+				timeCapsuleContentService.insertTimeCapsuleText(
+					timeCapsuleContentDtoMapper.fromGenerateTimeCapsuleTextRequest(member, timeCapsuleId, textRequest)
+				);
+			}
+		}
+
+		if (request.getMultipartFiles() != null) {
+			for (MultipartFile multipartFiles: request.getMultipartFiles()) {
+				timeCapsuleContentService.insertTimeCapsuleImage(multipartFiles, timeCapsuleId, member);
+			}
+		}
+
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ResponseDto.builder()
+				.httpStatus(HttpStatus.OK)
+				.msg("컨텐츠가 타임캡슐에 담겼습니다.")
+				.build());
+	}
+
 	@PostMapping("/text")
 	@Operation(summary = "타임캡슐 텍스트 생성 API_yejin")
 	public ResponseEntity<ResponseDto> generateTimeCapsuleText(@RequestHeader("member") UUID member,
-		@PathVariable("time-capsule") UUID timeCapsuleId,
-		@RequestBody GenerateTimeCapsuleContentRequest request) {
+															   @PathVariable("time-capsule") UUID timeCapsuleId,
+															   @RequestBody GenerateTimeCapsuleTextRequest request) {
 		timeCapsuleContentService.insertTimeCapsuleText(
 			timeCapsuleContentDtoMapper.fromGenerateTimeCapsuleTextRequest(member, timeCapsuleId, request));
 
@@ -90,8 +112,8 @@ public class TimeCapsuleContentController {
 	@GetMapping("/text/{text-id}")
 	@Operation(summary = "타임캡슐 텍스트 열기 API_yejin")
 	public ResponseEntity<ResponseDto> openTimeCapsuleText(@RequestHeader("member") UUID member,
-		@PathVariable("time-capsule") UUID timeCapsuleId,
-		@PathVariable("text-id") UUID timeCapsuleTextId) {
+														   @PathVariable("time-capsule") UUID timeCapsuleId,
+														   @PathVariable("text-id") UUID timeCapsuleTextId) {
 		TimeCapsuleTextDto timeCapsuleTextDto = timeCapsuleContentService.selectTimeCapsuleText(timeCapsuleTextId);
 
 		return ResponseEntity.status(HttpStatus.OK)
