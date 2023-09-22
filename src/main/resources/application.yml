@@ -15,14 +15,27 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
-    username: ${DATABASE_USERNAME}
+    url: ${DATABASE_URL}
     password: ${DATABASE_PASSWORD}
+    username: ${DATABASE_USERNAME}
   # jpa
   jpa:
-    show-sql: true
+    database: mysql
+    show_sql: true
     hibernate:
       ddl-auto: update
 
-#Feign Client
-FEIGN_URL: ${MEMBER_HOST}:${MEMBER_PORT}
+FEIGN_URL: localhost:8080
+
+cloud:
+  aws:
+    s3:
+      bucket: moa-timecapsule-images
+    credentials:
+      access-key: AKIAS2FT2X24HM2ZQ2MA
+      secret-key: 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
+    region:
+      static: ap-southeast-2
+      auto: false
+    stack:
+      auto: false

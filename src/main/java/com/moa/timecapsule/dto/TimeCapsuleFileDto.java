@@ -11,6 +11,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class TimeCapsuleFileDto {
 	private final UUID timeCapsuleFileId;
-	private final String url;
+	private UUID timeCapsuleId;
+	private UUID memberId;
+	private final String fileUrl;
 	private final ContentType contentType;
+	private TimeCapsuleMemberDto timeCapsuleMemberDto;
+
 }
