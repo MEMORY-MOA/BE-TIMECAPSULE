@@ -17,5 +17,7 @@ public class TimeCapsuleTextDto extends BaseDto {
 
 	private String text;
 
+	private String color;
+
 	private TimeCapsuleMemberDto timeCapsuleMemberDto;
 }
