@@ -43,7 +43,4 @@ public class TimeCapsuleFile extends BaseEntity  {
 	@Column(nullable = false)
 	private String fileUrl;
 
-	@Transient
-	private boolean isNew = true;
-
 }
