@@ -21,6 +21,8 @@ public class QTimeCapsuleText extends EntityPathBase<TimeCapsuleText> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
+    public final StringPath color = createString("color");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
