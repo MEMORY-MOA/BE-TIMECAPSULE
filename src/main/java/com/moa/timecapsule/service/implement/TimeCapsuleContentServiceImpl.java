@@ -78,6 +78,7 @@ public class TimeCapsuleContentServiceImpl implements TimeCapsuleContentService 
 	}
 
 	@Override
+	@Transactional
 	public TimeCapsuleFileDto insertTimeCapsuleImage(MultipartFile multipartFile, UUID timecapsuleId, UUID memberId) {
 		UUID fileId = UUID.randomUUID();
 		String fileUrl = uploadFile(multipartFile, timecapsuleId, fileId);

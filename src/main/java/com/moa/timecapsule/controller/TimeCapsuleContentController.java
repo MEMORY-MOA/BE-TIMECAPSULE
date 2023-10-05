@@ -40,15 +40,17 @@ public class TimeCapsuleContentController {
 	private final TimeCapsuleContentService timeCapsuleContentService;
 	private final TimeCapsuleContentDtoMapper timeCapsuleContentDtoMapper;
 
-	@GetMapping("/open/{time-capsule}")
+	@GetMapping("/{time-capsule}/open")
 	@Operation(summary = "타임캡슐 열기 API_yejin")
 	public ResponseEntity<ResponseDto> openTimeCapsule(@RequestHeader("member") UUID member,
 													   @PathVariable("time-capsule") UUID timeCapsuleId) {
 		List<TimeCapsuleTextDto> timeCapsuleTextDtoList = timeCapsuleContentService.selectTimeCapsuleTextList(
 			timeCapsuleId);
 
+		System.out.println("텍스트 검색");
 		 List<TimeCapsuleFileDto> timeCapsuleFileDtoList = timeCapsuleContentService.selectTimeCapsuleFileList(
 		 			timeCapsuleId);
+		System.out.println("이미지검색");
 
 		List<TimeCapsuleContentIdResponse> responseList = new ArrayList<>();
 
