@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/time-capsules")
+@RequestMapping("/time-capsules-content")
 @RequiredArgsConstructor
 @Slf4j
 public class TimeCapsuleContentController {
