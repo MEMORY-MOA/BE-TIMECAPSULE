@@ -74,7 +74,7 @@ public class TimeCapsuleContentController {
 	@PostMapping
 	@Operation(summary = "타임캡슐 컨텐츠 생성(텍스트+파일) API_yejin")
 	public ResponseEntity<ResponseDto> generateTimeCapsuleContents(@RequestHeader("member") UUID member,
-		GenerateTimeCapsuleContentRequest request) {
+		@RequestPart(required = false) GenerateTimeCapsuleContentRequest request, @RequestPart(required = false) List<MultipartFile> multipartFiles) {
 
 		System.out.println(request.getTimecapsuleId());
 		System.out.println(member);
@@ -89,8 +89,8 @@ public class TimeCapsuleContentController {
 			}
 		}
 
-		if (request.getMultipartFiles() != null) {
-			for (MultipartFile multipartFile: request.getMultipartFiles()) {
+		if (multipartFiles != null) {
+			for (MultipartFile multipartFile: multipartFiles) {
 				timeCapsuleContentService.insertTimeCapsuleImage(multipartFile, request.getTimecapsuleId(), member);
 			}
 		}
