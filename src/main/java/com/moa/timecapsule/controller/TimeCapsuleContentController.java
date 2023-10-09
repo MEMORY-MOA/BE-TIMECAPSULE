@@ -76,6 +76,11 @@ public class TimeCapsuleContentController {
 	public ResponseEntity<ResponseDto> generateTimeCapsuleContents(@RequestHeader("member") UUID member,
 		@RequestPart GenerateTimeCapsuleContentRequest request, @RequestPart List<MultipartFile> multipartFiles) {
 
+		timeCapsuleContentService.checkTimeCapsuleMember(request.getTimecapsuleId(), member);
+
+		System.out.println(request.getTimecapsuleId());
+		System.out.println(member);
+
 		if (request.getText() != null) {
 			for (GenerateTimeCapsuleTextRequest textRequest: request.getText()) {
 				timeCapsuleContentService.insertTimeCapsuleText(

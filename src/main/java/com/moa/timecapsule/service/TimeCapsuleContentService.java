@@ -21,4 +21,6 @@ public interface TimeCapsuleContentService {
 
 	TimeCapsuleFileDto selectTimeCapsuleFile(UUID timeCapsuleFileId);
 
+	void checkTimeCapsuleMember(UUID timeCapsuleId, UUID memberId);
+
 }

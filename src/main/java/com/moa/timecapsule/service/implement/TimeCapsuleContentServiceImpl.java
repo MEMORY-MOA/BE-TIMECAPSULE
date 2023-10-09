@@ -56,8 +56,6 @@ public class TimeCapsuleContentServiceImpl implements TimeCapsuleContentService 
 	@Override
 	@Transactional
 	public TimeCapsuleTextDto insertTimeCapsuleText(TimeCapsuleTextDto timeCapsuleTextDto) {
-		checkTimeCapsuleMember(timeCapsuleTextDto.getTimeCapsuleId(), timeCapsuleTextDto.getMemberId());
-
 		TimeCapsuleText timeCapsuleText = timeCapsuleTextRepository.save(
 			timeCapsuleContentMapper.toEntity(timeCapsuleTextDto));
 
@@ -115,7 +113,8 @@ public class TimeCapsuleContentServiceImpl implements TimeCapsuleContentService 
 		return timeCapsuleFileDto;
 	}
 
-	private void checkTimeCapsuleMember(UUID timeCapsuleId, UUID memberId) {
+	@Override
+	public void checkTimeCapsuleMember(UUID timeCapsuleId, UUID memberId) {
 		timeCapsuleMemberRepository.findByTimeCapsuleIdAndMemberId(timeCapsuleId, memberId)
 			.orElseThrow(() -> new NotFoundException("타임캡슐 멤버가 아닙니다."));
 	}
