@@ -9,14 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.moa.timecapsule.controller.request.GenerateTimeCapsuleContentRequest;
 import com.moa.timecapsule.controller.response.ResponseDto;
@@ -48,8 +41,8 @@ public class TimeCapsuleContentController {
 			timeCapsuleId);
 
 		System.out.println("텍스트 검색");
-		 List<TimeCapsuleFileDto> timeCapsuleFileDtoList = timeCapsuleContentService.selectTimeCapsuleFileList(
-		 			timeCapsuleId);
+		List<TimeCapsuleFileDto> timeCapsuleFileDtoList = timeCapsuleContentService.selectTimeCapsuleFileList(
+			timeCapsuleId);
 		System.out.println("이미지검색");
 
 		List<TimeCapsuleContentIdResponse> responseList = new ArrayList<>();
@@ -71,27 +64,25 @@ public class TimeCapsuleContentController {
 				.build());
 	}
 
-	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PostMapping(path = "/{time-capsule}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@Operation(summary = "타임캡슐 컨텐츠 생성(텍스트+파일) API_yejin")
-	public ResponseEntity<ResponseDto> generateTimeCapsuleContents(@RequestHeader("member") UUID member,
-		@RequestPart GenerateTimeCapsuleContentRequest request, @RequestPart List<MultipartFile> multipartFiles) {
+	public ResponseEntity<ResponseDto> generateTimeCapsuleContents(@RequestHeader("member") UUID member, @PathVariable("time-capsule") UUID timeCapsuleId,
+																   @RequestPart(value = "request", required = false) GenerateTimeCapsuleContentRequest request,
+																   @RequestPart(value = "multipartFiles", required = false) List<MultipartFile> multipartFiles) {
 
-		timeCapsuleContentService.checkTimeCapsuleMember(request.getTimecapsuleId(), member);
+		timeCapsuleContentService.checkTimeCapsuleMember(timeCapsuleId, member);
 
-		System.out.println(request.getTimecapsuleId());
-		System.out.println(member);
-
-		if (request.getText() != null) {
-			for (GenerateTimeCapsuleTextRequest textRequest: request.getText()) {
+		if (request.getTextList() != null) {
+			for (GenerateTimeCapsuleTextRequest textRequest : request.getTextList()) {
 				timeCapsuleContentService.insertTimeCapsuleText(
-					timeCapsuleContentDtoMapper.fromGenerateTimeCapsuleTextRequest(member, request.getTimecapsuleId(), textRequest)
+					timeCapsuleContentDtoMapper.fromGenerateTimeCapsuleTextRequest(member, timeCapsuleId, textRequest)
 				);
 			}
 		}
 
 		if (multipartFiles != null) {
-			for (MultipartFile multipartFile: multipartFiles) {
-				timeCapsuleContentService.insertTimeCapsuleImage(multipartFile, request.getTimecapsuleId(), member);
+			for (MultipartFile multipartFile : multipartFiles) {
+				timeCapsuleContentService.insertTimeCapsuleImage(multipartFile, timeCapsuleId, member);
 			}
 		}
 
