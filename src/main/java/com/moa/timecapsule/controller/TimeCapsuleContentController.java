@@ -6,8 +6,6 @@ import java.util.UUID;
 
 import com.moa.timecapsule.controller.request.GenerateTimeCapsuleTextRequest;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
