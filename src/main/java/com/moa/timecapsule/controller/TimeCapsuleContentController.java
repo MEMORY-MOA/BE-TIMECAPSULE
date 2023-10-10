@@ -72,6 +72,7 @@ public class TimeCapsuleContentController {
 
 		timeCapsuleContentService.checkTimeCapsuleMember(timeCapsuleId, member);
 
+
 		if (request.getTextList() != null) {
 			for (GenerateTimeCapsuleTextRequest textRequest : request.getTextList()) {
 				timeCapsuleContentService.insertTimeCapsuleText(
