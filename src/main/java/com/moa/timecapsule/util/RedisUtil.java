@@ -2,34 +2,38 @@ package com.moa.timecapsule.util;
 
 import java.time.Duration;
 
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@RequiredArgsConstructor
 @Component
 public class RedisUtil {
-	private final StringRedisTemplate stringRedisTemplate;
+	private final RedisTemplate<String, String> redisTemplateOne;
+
+	public RedisUtil(
+		@Qualifier("redisTemplate") RedisTemplate<String, String> redisTemplateOne) {
+		this.redisTemplateOne = redisTemplateOne;
+	}
 
 	public String getData(String key) {
-		ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
+		ValueOperations<String, String> valueOperations = redisTemplateOne.opsForValue();
 		return valueOperations.get(key);
 	}
 
 	public void setData(String key, String value) {
-		ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
+		ValueOperations<String, String> valueOperations = redisTemplateOne.opsForValue();
 		valueOperations.set(key, value);
 	}
 
 	public void setDataExpire(String key, String value, long duration) {
-		ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
+		ValueOperations<String, String> valueOperations = redisTemplateOne.opsForValue();
 		Duration expireDuration = Duration.ofSeconds(duration);
 		valueOperations.set(key, value, expireDuration);
 	}
 
 	public void deleteData(String key) {
-		stringRedisTemplate.delete(key);
+		redisTemplateOne.delete(key);
 	}
 }
