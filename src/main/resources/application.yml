@@ -3,9 +3,6 @@ server:
 
 # datasource
 spring:
-  config:
-    import: env.yml
-
   data:
     redis:
       host: ${REDIS_HOST}
@@ -17,7 +14,7 @@ spring:
         max-wait: ${REDIS_POOL_MAX_WAIT}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DATABASE_URL}
+    url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}?useSSL=false
     password: ${DATABASE_PASSWORD}
     username: ${DATABASE_USERNAME}
   # jpa
@@ -27,7 +24,7 @@ spring:
     hibernate:
       ddl-auto: update
 
-FEIGN_URL: localhost:8080
+FEIGN_URL: ${MEMBER_HOST}:${MEMBER_PORT}
 
 cloud:
   aws:
