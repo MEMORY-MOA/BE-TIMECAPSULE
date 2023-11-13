@@ -29,4 +29,6 @@ public class TimeCapsuleResponse {
 	private List<TimeCapsuleMemberDto> friends;
 
 	private LocalDateTime createdAt;
+
+	private int shape;
 }

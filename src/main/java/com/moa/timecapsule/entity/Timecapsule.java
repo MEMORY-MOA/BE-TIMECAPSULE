@@ -41,4 +41,6 @@ public class Timecapsule extends BaseEntity {
 
 	@Column(nullable = false, columnDefinition = "BINARY(16)")
 	private UUID creator;
+
+	private int shape;
 }
