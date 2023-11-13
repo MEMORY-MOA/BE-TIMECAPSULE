@@ -3,6 +3,7 @@ package com.moa.timecapsule.controller;
 import java.util.List;
 import java.util.UUID;
 
+import com.moa.timecapsule.dto.TimeCapsuleLinkCountDto;
 import com.moa.timecapsule.dto.TimeCapsuleListDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
