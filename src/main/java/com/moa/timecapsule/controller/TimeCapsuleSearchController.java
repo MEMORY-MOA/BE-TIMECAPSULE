@@ -2,22 +2,19 @@ package com.moa.timecapsule.controller;
 
 import java.util.UUID;
 
+import com.moa.timecapsule.controller.request.SessionTokenRequest;
+import com.moa.timecapsule.dto.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.moa.timecapsule.controller.response.ResponseDto;
 import com.moa.timecapsule.controller.response.TimeCapsuleSearchResponse;
-import com.moa.timecapsule.dto.FriendIdListDto;
-import com.moa.timecapsule.dto.FriendSearchDto;
-import com.moa.timecapsule.dto.TimeCapsuleSearchListDto;
 import com.moa.timecapsule.mapper.TimeCapsuleSearchMapper;
 import com.moa.timecapsule.service.TimeCapsuleSearchService;
 
@@ -52,6 +49,63 @@ public class TimeCapsuleSearchController {
 				.httpStatus(HttpStatus.OK)
 				.msg("타임캡슐 검색이 완료되었습니다.")
 				.data(timeCapsuleSearchResponse)
+				.build());
+	}
+
+	@GetMapping("/{time-capsule}/link")
+	@Operation(summary = "타임캡슐 접속 연결_yejin")
+	public ResponseEntity<ResponseDto> linkTimeCapsule(@RequestHeader("member") UUID member,
+														  @PathVariable("time-capsule") UUID timeCapsuleId,
+														  HttpServletRequest request) {
+
+		TokenDto tokenDto = timeCapsuleSearchService.link(member, timeCapsuleId);
+
+		HttpSession session = request.getSession();
+		session.setAttribute("linkTokenId", tokenDto.getToken());
+		session.setMaxInactiveInterval(5*60);
+
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ResponseDto.builder()
+				.httpStatus(HttpStatus.OK)
+				.msg("타임캡슐 접속 한 명 증가하였습니다.")
+				.data(timeCapsuleSearchMapper.dtoToTokenResponse(tokenDto))
+				.build());
+	}
+
+	@PostMapping("/{time-capsule}/unlink")
+	@Operation(summary = "타임캡슐 접속 연결 끊기_yejin")
+	public ResponseEntity<ResponseDto> unlinkTimeCapsule(@RequestBody SessionTokenRequest sessionTokenRequest,
+														 @PathVariable("time-capsule") UUID timeCapsuleId,
+														 HttpServletRequest request) {
+		System.out.println("unlink");
+		timeCapsuleSearchService.unlink(sessionTokenRequest.getToken(), timeCapsuleId);
+
+		HttpSession session = request.getSession();
+		UUID user = (UUID)session.getAttribute("linkTokenId");
+
+		if (user != null && user.equals(sessionTokenRequest.getToken())) {
+			session.removeAttribute("linkTokenId");
+			session.invalidate();
+		}
+
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ResponseDto.builder()
+				.httpStatus(HttpStatus.OK)
+				.msg("타임캡슐 접속 한 명 감소하였습니다.")
+				.build());
+	}
+
+	@GetMapping("/{time-capsule}/link/count")
+	@Operation(summary = "타임캡슐 접속자 수_yejin")
+	public ResponseEntity<ResponseDto> getTimeCapsuleLinkCount(@PathVariable("time-capsule") UUID timeCapsuleId) {
+
+		TimeCapsuleLinkCountDto timeCapsuleLinkCountDto = timeCapsuleSearchService.linkCount(timeCapsuleId);
+
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ResponseDto.builder()
+				.httpStatus(HttpStatus.OK)
+				.msg("타임캡슐 접속자 수를 조회하였습니다.")
+				.data(timeCapsuleSearchMapper.dtoToTimeCapsuleLinkCountResponse(timeCapsuleLinkCountDto))
 				.build());
 	}
 }
