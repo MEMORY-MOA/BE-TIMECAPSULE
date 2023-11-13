@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.UUID;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
 @Data
@@ -23,6 +22,8 @@ public class TimeCapsuleDto extends BaseDto {
 	private boolean isOpened;
 
 	private UUID creator;
+
+	private int shape;
 
 	private List<TimeCapsuleMemberDto> friends;
 }

@@ -22,5 +22,7 @@ public class GenerateTimeCapsuleRequest {
 	@DateTimeFormat
 	private LocalDate openedAt;
 
+	private int shape;
+
 	private List<UUID> friends;
 }
