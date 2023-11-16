@@ -41,3 +41,7 @@ cloud:
       auto: false
     stack:
       auto: false
+
+redis:
+  port1: ${REDIS_PORT1}
+  port2: ${REDIS_PORT2}
