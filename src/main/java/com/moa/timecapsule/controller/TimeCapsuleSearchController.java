@@ -77,7 +77,6 @@ public class TimeCapsuleSearchController {
 	public ResponseEntity<ResponseDto> unlinkTimeCapsule(@RequestBody SessionTokenRequest sessionTokenRequest,
 														 @PathVariable("time-capsule") UUID timeCapsuleId,
 														 HttpServletRequest request) {
-		System.out.println("unlink");
 		timeCapsuleSearchService.unlink(sessionTokenRequest.getToken(), timeCapsuleId);
 
 		HttpSession session = request.getSession();

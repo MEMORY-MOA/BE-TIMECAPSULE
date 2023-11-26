@@ -1,6 +1,6 @@
 package com.moa.timecapsule.session;
 
-import com.moa.timecapsule.util.Redis2Util;
+import com.moa.timecapsule.util.RedisUtil;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
@@ -16,9 +16,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class WebSessionListener implements HttpSessionListener {
 
-	private final Hashtable<UUID, UUID> userList = new Hashtable<>(); // key, memberId
-
-	private final Redis2Util redis2Util;
+	private final RedisUtil redisUtil;
 
 	/**
 	 * session.setAttribute 실행 되는 순간 같은 sessionId 일경우 1회만 실행
@@ -45,20 +43,24 @@ public class WebSessionListener implements HttpSessionListener {
 	 * 현제 HashTable에 담겨 있는 유저 리스트, 즉 session list
 	 */
 	public Long currentSessionList(UUID timeCapsuleId){
-		return redis2Util.getSize(String.valueOf(timeCapsuleId));
+		return redisUtil.getSize("TC"+timeCapsuleId);
 	}
 
 	public void increaseSessionList(UUID timeCapsuleId, UUID memberId, UUID key) {
-		if (!userList.contains(memberId)) {
-			userList.put(key, memberId);
-			redis2Util.set(String.valueOf(timeCapsuleId), String.valueOf(key));
-		}
-		log.info("link "+ redis2Util.getSize(String.valueOf(timeCapsuleId)) + " 명이 접속하고 있습니다.");
+		String tcTimeCapsuleId = "TC" + timeCapsuleId;
+		String tcKey = "TCK" + key;
+
+		redisUtil.set(tcTimeCapsuleId, tcKey);
+		redisUtil.setDataExpire(tcKey, String.valueOf(memberId), 5 * 60);
+
+		log.info("link "+ redisUtil.getSize(tcTimeCapsuleId) + " 명이 접속하고 있습니다.");
 	}
 
 	public void decreaseSessionList(UUID timeCapsuleId, UUID key) {
-		userList.remove(key);
-		redis2Util.delete(String.valueOf(timeCapsuleId), String.valueOf(key));
-		log.info("unlink "+ redis2Util.getSize(String.valueOf(timeCapsuleId)) + " 명이 접속하고 있습니다.");
+		String tcTimeCapsuleId = "TC" + timeCapsuleId;
+		String tcKey = "TCK" + key;
+
+		redisUtil.delete(tcTimeCapsuleId, tcKey);
+		log.info("unlink "+ redisUtil.getSize(tcTimeCapsuleId) + " 명이 접속하고 있습니다.");
 	}
 }
