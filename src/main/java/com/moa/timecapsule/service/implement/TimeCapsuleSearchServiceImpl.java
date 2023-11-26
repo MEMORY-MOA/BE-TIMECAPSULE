@@ -6,8 +6,6 @@ import java.util.UUID;
 
 import com.moa.timecapsule.dto.*;
 import com.moa.timecapsule.session.WebSessionListener;
-import com.moa.timecapsule.util.Redis2Util;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,7 +30,6 @@ public class TimeCapsuleSearchServiceImpl implements TimeCapsuleSearchService {
 	private final TimeCapsuleMemberRepository timeCapsuleMemberRepository;
 	private final TimeCapsuleRepository timeCapsuleRepository;
 
-	private final Redis2Util redis2Util;
 	private final WebSessionListener webSessionListener;
 
 	@Override
@@ -76,7 +73,6 @@ public class TimeCapsuleSearchServiceImpl implements TimeCapsuleSearchService {
 	@Override
 	public TokenDto link(UUID memberId, UUID timeCapsuleId) {
 		UUID key = UUID.randomUUID();
-		System.out.println(key);
 		webSessionListener.increaseSessionList(timeCapsuleId, memberId, key);
 
 		return TokenDto.builder()
