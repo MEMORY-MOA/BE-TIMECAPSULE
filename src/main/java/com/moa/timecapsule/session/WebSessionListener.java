@@ -16,9 +16,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class WebSessionListener implements HttpSessionListener {
 
-	class UserToken {
-
-	}
 	private final RedisUtil redisUtil;
 
 	/**
