@@ -1,12 +1,10 @@
 package com.moa.timecapsule.entity;
 
-import java.sql.Types;
 import java.time.LocalDate;
 import java.util.UUID;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,4 +41,8 @@ public class Timecapsule extends BaseEntity {
 	private UUID creator;
 
 	private int shape;
+
+	public void updateIsOpened(boolean state) {
+		isOpened = true;
+	}
 }
