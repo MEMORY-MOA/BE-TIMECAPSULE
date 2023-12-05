@@ -84,6 +84,16 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 			.build();
 	}
 
+	@Override
+	public void updateIsOpened(UUID timeCapsuleId) {
+		Timecapsule timecapsule = timeCapsuleRepository.findTimecapsuleByTimeCapsuleId(timeCapsuleId)
+			.orElseThrow(() -> new NotFoundException("타임캡슐 멤버가 아닙니다."));
+
+		timecapsule.updateIsOpened(true);
+
+		timeCapsuleRepository.save(timecapsule);
+	}
+
 	private void insertTimeCapsuleMember(UUID timeCapsuleId, UUID friend) {
 		timeCapsuleMemberRepository.save(TimeCapsuleMember.builder()
 			.timeCapsuleId(timeCapsuleId)
@@ -95,4 +105,5 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
 		timeCapsuleMemberRepository.findByTimeCapsuleIdAndMemberId(timeCapsuleId, memberId)
 			.orElseThrow(() -> new NotFoundException("타임캡슐 멤버가 아닙니다."));
 	}
+
 }

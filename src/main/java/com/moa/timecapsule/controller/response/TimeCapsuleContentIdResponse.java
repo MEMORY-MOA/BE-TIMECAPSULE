@@ -16,4 +16,8 @@ public class TimeCapsuleContentIdResponse {
 
 	@Enumerated(EnumType.STRING)
 	private ContentType contentType;
+
+	private String color;
+
+	private String fileUrl;
 }

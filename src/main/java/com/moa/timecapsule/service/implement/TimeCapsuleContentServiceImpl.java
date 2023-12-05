@@ -1,10 +1,10 @@
 package com.moa.timecapsule.service.implement;
 
 import java.io.IOException;
-import java.lang.runtime.ObjectMethods;
 import java.util.List;
 import java.util.UUID;
 
+import com.moa.timecapsule.entity.Timecapsule;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

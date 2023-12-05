@@ -13,13 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.moa.timecapsule.controller.request.GenerateTimeCapsuleRequest;
 import com.moa.timecapsule.controller.response.ResponseDto;
@@ -86,6 +80,19 @@ public class TimeCapsuleController {
 				.httpStatus(HttpStatus.OK)
 				.msg("타임캡슐 정보 조회가 완료되었습니다.")
 				.data(timeCapsuleDtoMapper.toTimeCapsuleListResponse(timeCapsuleDtoList))
+				.build());
+	}
+
+	@PutMapping("/{time-capsule}/open")
+	@Operation(summary = "타임캡슐 열기 버튼 활성화 API_yejin")
+	public ResponseEntity<ResponseDto> updateIsOpened(@RequestHeader("member") UUID member,
+													  @PathVariable("time-capsule") UUID timeCapsuleId) {
+		timeCapsuleService.updateIsOpened(timeCapsuleId);
+
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ResponseDto.builder()
+				.httpStatus(HttpStatus.OK)
+				.msg("타임캡슐 버튼이 활성화 되었습니다.")
 				.build());
 	}
 }

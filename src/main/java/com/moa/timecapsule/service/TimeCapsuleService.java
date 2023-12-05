@@ -15,4 +15,6 @@ public interface TimeCapsuleService {
 	TimeCapsuleDto selectTimeCapsule(TimeCapsuleIdsDto timeCapsuleIdsDto);
 
 	TimeCapsuleListDto selectTimeCapsules(UUID member, Pageable page);
+
+	void updateIsOpened(UUID timeCapsuleId);
 }

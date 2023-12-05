@@ -13,6 +13,10 @@ public class TimeCapsuleTextResponse {
 
 	private String text;
 
+	private String color;
+
+	private String loginId;
+
 	private String nickname;
 
 	private LocalDateTime createdAt;

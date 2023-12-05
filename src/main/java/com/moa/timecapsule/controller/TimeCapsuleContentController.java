@@ -40,20 +40,18 @@ public class TimeCapsuleContentController {
 		List<TimeCapsuleTextDto> timeCapsuleTextDtoList = timeCapsuleContentService.selectTimeCapsuleTextList(
 			timeCapsuleId);
 
-		System.out.println("텍스트 검색");
 		List<TimeCapsuleFileDto> timeCapsuleFileDtoList = timeCapsuleContentService.selectTimeCapsuleFileList(
 			timeCapsuleId);
-		System.out.println("이미지검색");
 
 		List<TimeCapsuleContentIdResponse> responseList = new ArrayList<>();
 
 		for (TimeCapsuleTextDto timeCapsuleTextDto : timeCapsuleTextDtoList) {
-			responseList.add(toTimeCapsuleContentIdResponse(timeCapsuleTextDto.getTimeCapsuleTextId()));
+			responseList.add(toTimeCapsuleContentIdResponse(timeCapsuleTextDto.getTimeCapsuleTextId(), timeCapsuleTextDto.getColor()));
 		}
 
 		for (TimeCapsuleFileDto timeCapsuleFileDto : timeCapsuleFileDtoList) {
 			responseList.add(toTimeCapsuleContentIdResponse(timeCapsuleFileDto.getTimeCapsuleFileId(),
-				timeCapsuleFileDto.getContentType()));
+				timeCapsuleFileDto.getContentType(), timeCapsuleFileDto.getFileUrl()));
 		}
 
 		return ResponseEntity.status(HttpStatus.OK)
@@ -123,17 +121,34 @@ public class TimeCapsuleContentController {
 				.build());
 	}
 
-	private TimeCapsuleContentIdResponse toTimeCapsuleContentIdResponse(UUID contentId) {
+	@GetMapping("/{time-capsule}/file/{file-id}")
+	@Operation(summary = "타임캡슐 파일 열기 API_yejin")
+	public ResponseEntity<ResponseDto> openTimeCapsuleFile(@RequestHeader("member") UUID member,
+														   @PathVariable("time-capsule") UUID timeCapsuleId,
+														   @PathVariable("file-id") UUID timeCapsuleFileId) {
+		TimeCapsuleFileDto timeCapsuleFileDto = timeCapsuleContentService.selectTimeCapsuleFile(timeCapsuleFileId);
+
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(ResponseDto.builder()
+				.httpStatus(HttpStatus.OK)
+				.msg("편지를 열었습니다")
+				.data(timeCapsuleContentDtoMapper.toTimeCapsuleFileResponse(timeCapsuleFileDto))
+				.build());
+	}
+
+	private TimeCapsuleContentIdResponse toTimeCapsuleContentIdResponse(UUID contentId, String color) {
 		return TimeCapsuleContentIdResponse.builder()
 			.contentId(contentId)
 			.contentType(ContentType.TEXT)
+			.color(color)
 			.build();
 	}
 
-	private TimeCapsuleContentIdResponse toTimeCapsuleContentIdResponse(UUID contentId, ContentType contentType) {
+	private TimeCapsuleContentIdResponse toTimeCapsuleContentIdResponse(UUID contentId, ContentType contentType, String fileUrl) {
 		return TimeCapsuleContentIdResponse.builder()
 			.contentId(contentId)
 			.contentType(contentType)
+			.fileUrl(fileUrl)
 			.build();
 	}
 }
