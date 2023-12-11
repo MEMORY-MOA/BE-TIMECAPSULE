@@ -61,6 +61,7 @@ public class WebSessionListener implements HttpSessionListener {
 		String tcKey = "TCK" + key;
 
 		redisUtil.delete(tcTimeCapsuleId, tcKey);
+		redisUtil.delete(tcKey);
 		log.info("unlink "+ redisUtil.getSize(tcTimeCapsuleId) + " 명이 접속하고 있습니다.");
 	}
 }
