@@ -51,7 +51,7 @@ public class WebSessionListener implements HttpSessionListener {
 		String tcKey = "TCK" + key;
 
 		redisUtil.set(tcTimeCapsuleId, tcKey);
-		redisUtil.setDataExpire(tcKey, String.valueOf(memberId), 5 * 60);
+		redisUtil.setDataExpire(tcKey, String.valueOf(memberId), 1 * 60);
 
 		log.info("link "+ redisUtil.getSize(tcTimeCapsuleId) + " 명이 접속하고 있습니다.");
 	}
