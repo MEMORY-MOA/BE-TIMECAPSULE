@@ -18,4 +18,6 @@ public class TimeCapsuleFileResponse {
 	private String loginId;
 
 	private String nickname;
+
+	private int memColor;
 }

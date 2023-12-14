@@ -19,9 +19,11 @@ public interface TimeCapsuleContentDtoMapper {
 
 	@Mapping(source = "timeCapsuleMemberDto.nickname", target = "nickname")
 	@Mapping(source = "timeCapsuleMemberDto.loginId", target = "loginId")
+	@Mapping(source = "timeCapsuleMemberDto.memColor", target = "memColor")
 	TimeCapsuleTextResponse toTimeCapsuleTextResponse(TimeCapsuleTextDto timeCapsuleTextDto);
 
 	@Mapping(source = "timeCapsuleMemberDto.nickname", target = "nickname")
 	@Mapping(source = "timeCapsuleMemberDto.loginId", target = "loginId")
+	@Mapping(source = "timeCapsuleMemberDto.memColor", target = "memColor")
 	TimeCapsuleFileResponse toTimeCapsuleFileResponse(TimeCapsuleFileDto timeCapsuleFileDto);
 }

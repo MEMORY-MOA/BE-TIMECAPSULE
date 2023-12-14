@@ -19,5 +19,7 @@ public class TimeCapsuleTextResponse {
 
 	private String nickname;
 
+	private int memColor;
+
 	private LocalDateTime createdAt;
 }
